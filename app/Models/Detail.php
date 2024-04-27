@@ -4,8 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Detail extends Model
 {
     use HasFactory;
+
+    // protected $table = 'details';
+
+    protected $guarded = [
+        'id'
+    ];
+
+    protected $with = [
+        'order',
+        'product',
+    ];
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
