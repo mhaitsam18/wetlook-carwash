@@ -18,7 +18,8 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->nullOnDelete();
             $table->string('name');
-            $table->string('duration')->nullable();;
+            $table->text('description');
+            $table->double('duration')->nullable();;
             $table->double('price')->nullable();
             $table->timestamps();
         });

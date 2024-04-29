@@ -18,6 +18,8 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->nullOnDelete();
             $table->string('name')->nullable();
+            $table->enum('type', ['additional', 'produk', 'jasa', 'makanan dan minuman'])->nullable();
+            $table->text('description')->nullable();
             $table->double('price')->nullable();
             $table->timestamps();
         });
