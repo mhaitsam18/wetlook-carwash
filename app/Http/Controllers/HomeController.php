@@ -9,8 +9,15 @@ class HomeController extends Controller
 {
     function index(): View
     {
-        return view('home', [
-            'title' => 'Beranda'
+        return view('home.index', [
+            'title' => 'Beranda | Wetlook Carwash'
+        ]);
+    }
+
+    function booking(): View
+    {
+        return view('home.booking', [
+            'title' => 'Booking | Wetlook Carwash'
         ]);
     }
 }
