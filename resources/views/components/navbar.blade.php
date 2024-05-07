@@ -17,5 +17,16 @@
                 <x-nav-link href="/login" :active="request()->is('login')">Login</x-nav-link>
             @endif
         @endguest
+        @auth
+            @if ($wide)
+                <li class="float-right">
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+            @else
+                <x-nav-link href="/logout" :active="request()->is('logout')">Log Out</x-nav-link>
+            @endif
+        @endauth
     </ul>
 </nav>

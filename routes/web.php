@@ -22,4 +22,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/member/index', [MemberBookingController::class, 'index'])->name('member.index');
         Route::get('/member/booking/index', [MemberBookingController::class, 'index'])->name('member.booking.index');
     });
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout.post');
 });
