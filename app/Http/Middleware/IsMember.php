@@ -19,11 +19,11 @@ class IsMember
         if (Auth::user()->role == 'member') {
             return $next($request);
         }
-        abort(403);
-        // return response()->view('errors.index', [
-        //     'title' => 'Akses ditolak',
-        //     'message' => 'Anda dilarang mengakses halaman ini',
-        //     'code' => '403',
-        // ], 403);
+        // abort(403);
+        return response()->view('errors.index', [
+            'title' => 'Akses ditolak',
+            'message' => 'Anda dilarang mengakses halaman ini',
+            'code' => '403',
+        ], 403);
     }
 }

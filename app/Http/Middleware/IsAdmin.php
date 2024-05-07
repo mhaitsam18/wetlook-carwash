@@ -19,11 +19,10 @@ class IsAdmin
         if (Auth::user()->role == 'admin') {
             return $next($request);
         }
-        abort(403);
-        // return response()->view('errors.index', [
-        //     'title' => 'Akses ditolak',
-        //     'message' => 'Anda dilarang mengakses halaman ini',
-        //     'code' => '403',
-        // ], 403);
+        return response()->view('errors.index', [
+            'title' => 'Akses ditolak',
+            'message' => 'Anda dilarang mengakses halaman ini',
+            'code' => '403',
+        ], 403);
     }
 }
