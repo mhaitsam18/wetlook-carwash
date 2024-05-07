@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ $title ?? 'Wetlook Carwash' }}</title>
+    <title>{{ $title ?? 'Wetlook Carwash' }} | Wetlook Carwash</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
     <link rel="shortcut icon" href="/img/wetlook-logo.ico" type="image/png">
@@ -36,9 +36,7 @@
 
 <body>
 
-    <!-- ...:::: Start Header Section:::... -->
     <header class="header-section d-lg-block d-none">
-        <!-- Start Header Top Area -->
         <div class="header-top">
             <div class="container">
                 <div class="row d-flex justify-content-between align-items-center">
@@ -86,17 +84,14 @@
                     </div>
                 </div>
             </div>
-        </div> <!-- End Header Top Area -->
+        </div>
 
-        <!-- Start Header Center Area -->
         <div class="header-center p-2">
             <div class="container">
                 <div class="row d-flex justify-content-between align-items-center">
                     <div class="col-3">
-                        <!-- Logo Header -->
                         <div class="header-logo">
                             <a href="/"><img src="/img/logo-mini.png" alt=""></a>
-                            {{-- <a href="/"><img src="/images/logo/logo.png" alt=""></a> --}}
                         </div>
                     </div>
                     <div class="col-6">
@@ -113,14 +108,13 @@
                         </div> <!-- End Header Search --> --}}
                     </div>
                     <div class="col-3 text-right">
-                        <!-- Start Header Action Icon -->
-                        <ul class="header-action-icon">
+                        {{-- <ul class="header-action-icon">
                             <li>
-                                <a href="#offcanvas-add-cart" class="offcanvas-toggle">
+                                <a href="/login" class="offcanvas-toggle">
                                     <i class="fa fa-sign-in"></i> Log in
                                 </a>
                             </li>
-                        </ul> <!-- End Header Action Icon -->
+                        </ul> --}}
                     </div>
                 </div>
             </div>
@@ -133,7 +127,7 @@
                     <div class="col-12">
                         <!-- Header Main Menu -->
                         <div class="main-menu">
-                            <x-navbar></x-navbar>
+                            <x-navbar :wide="true"></x-navbar>
                         </div> <!-- Header Main Menu Start -->
                     </div>
                 </div>
@@ -193,23 +187,18 @@
                 </div>
                 <!-- Start Header Action Icon -->
                 <ul class="mobile-action-icon">
-                    <li class="mobile-action-icon-item">
+                    {{-- <li class="mobile-action-icon-item">
                         <a href="wishlist.html" class="mobile-action-icon-link">
                             <i class="fa fa-sign-in"></i> Log In
                         </a>
-                    </li>
+                    </li> --}}
                 </ul> <!-- End Header Action Icon -->
             </div> <!-- End Mobile Menu User Center -->
             <!-- Start Mobile Menu Bottom -->
             <div class="mobile-menu-bottom">
                 <!-- Start Mobile Menu Nav -->
                 <div class="offcanvas-menu">
-                    <ul>
-                        <li>
-                            <a href="/">Beranda</a>
-                        </li>
-                        <li><a href="/booking">Booking</a></li>
-                    </ul>
+                    <x-navbar :wide="false"></x-navbar>
                 </div> <!-- End Mobile Menu Nav -->
 
                 <!-- Mobile Manu Mail Address -->
@@ -225,6 +214,7 @@
 
 
     <div class="offcanvas-overlay"></div>
+    <x-header>{{ $title }}</x-header>
 
     {{ $slot }}
 
@@ -241,14 +231,16 @@
                                         class="img-fluid"></a>
                             </div>
                             <div class="footer-contact">
-                                <p>Jl. Raya Semplak 9-78, RT.01/RW.02, Kel. Cilendek Barat, Kec. Bogor Barat, Kota Bogor, Jawa Barat 16114</p>
+                                <p>Jl. Raya Semplak 9-78, RT.01/RW.02, Kel. Cilendek Barat, Kec. Bogor Barat, Kota
+                                    Bogor, Jawa Barat 16114</p>
                                 <div class="customer-support">
                                     <div class="customer-support-icon">
                                         <img src="/images/icon/support-icon.png" alt="">
                                     </div>
                                     <div class="customer-support-text">
                                         <span>Customer Support</span>
-                                        <a class="customer-support-text-phone" href="tel:6282127385724">082127385724</a>
+                                        <a class="customer-support-text-phone"
+                                            href="tel:6282127385724">082127385724</a>
                                     </div>
                                 </div>
                             </div>
@@ -269,12 +261,15 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6">
                         <div class="copyright-area">
-                            <p class="copyright-area-text">&copy; {{ now()->format('Y') }} <a href="/">Wetlook Carwash</a>. Made with <i class="fa fa-heart text-danger"></i> by Aldin Caesario Iswandi </p>
+                            <p class="copyright-area-text">&copy; {{ now()->format('Y') }} <a href="/">Wetlook
+                                    Carwash</a>. Made with <i class="fa fa-heart text-danger"></i> by Aldin Caesario
+                                Iswandi </p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="footer-payment">
-                            <a href=""><img class="img-fluid" src="/images/icon/payment-icon.png" alt=""></a>
+                            <a href=""><img class="img-fluid" src="/images/icon/payment-icon.png"
+                                    alt=""></a>
                         </div>
                     </div>
                 </div>
