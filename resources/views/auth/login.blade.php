@@ -11,7 +11,8 @@
                             @csrf
                             <div class="default-form-box mb-20">
                                 <label>Username atau email <span>*</span></label>
-                                <input type="text" name="email_or_username" id="email_or_username">
+                                <input type="text" name="email_or_username" id="email_or_username"
+                                    value="{{ old('email_or_username') }}">
                                 @error('email_or_username')
                                     <div class="text-danger fs-6">
                                         {{ $message }}

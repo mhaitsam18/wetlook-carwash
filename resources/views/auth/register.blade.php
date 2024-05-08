@@ -12,7 +12,8 @@
                             <div class="row">
                                 <div class="default-form-box mb-20 col-6">
                                     <label>Email <span>*</span></label>
-                                    <input type="email" name="email" id="email">
+                                    <input type="email" name="email" id="email"
+                                        value="{{ old('email_or_username') }}">
                                     @error('email')
                                         <div class="text-danger fs-6">
                                             {{ $message }}
@@ -21,7 +22,7 @@
                                 </div>
                                 <div class="default-form-box mb-20 col-6">
                                     <label>Username <span>*</span></label>
-                                    <input type="text" name="username" id="username">
+                                    <input type="text" name="username" id="username" value="{{ old('username') }}">
                                     @error('username')
                                         <div class="text-danger fs-6">
                                             {{ $message }}
@@ -30,7 +31,7 @@
                                 </div>
                                 <div class="default-form-box mb-20 col-6">
                                     <label>Nama Lengkap <span>*</span></label>
-                                    <input type="text" name="name" id="name">
+                                    <input type="text" name="name" id="name" value="{{ old('name') }}">
                                     @error('name')
                                         <div class="text-danger fs-6">
                                             {{ $message }}
@@ -39,7 +40,8 @@
                                 </div>
                                 <div class="default-form-box mb-20 col-6">
                                     <label>Nomor Telepon <span>*</span></label>
-                                    <input type="text" name="phone_number" id="phone_number">
+                                    <input type="text" name="phone_number" id="phone_number"
+                                        value="{{ old('phone_number') }}">
                                     @error('phone_number')
                                         <div class="text-danger fs-6">
                                             {{ $message }}
@@ -66,7 +68,7 @@
                                 </div>
                                 <div class="default-form-box mb-20 col-6">
                                     <label>Alamat <span>*</span></label>
-                                    <textarea name="address" id="address" rows="1"></textarea>
+                                    <textarea name="address" id="address" rows="1">{{ old('address') }}</textarea>
                                     @error('address')
                                         <div class="text-danger fs-6">
                                             {{ $message }}
