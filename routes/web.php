@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberBookingController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MemberVehicleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -18,9 +20,19 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::middleware('member')->group(function () {
+        Route::prefix('member')->group(function () {
+            Route::get('/my-profile', [MemberController::class, 'index'])->name('member.my-profile');
+            Route::get('/index', [MemberBookingController::class, 'index'])->name('member.index');
+            Route::get('/booking/index', [MemberBookingController::class, 'index'])->name('member.booking.index');
+        });
+        Route::get('/my-profile', [MemberController::class, 'index'])->name('my-profile');
+        Route::put('/my-profile/{member}', [MemberController::class, 'update'])->name('update.member');
+        Route::put('/change-password/{user}', [MemberController::class, 'updatePassword'])->name('update.password');
+
+
         Route::get('/booking', [MemberBookingController::class, 'index'])->name('booking');
-        Route::get('/member/index', [MemberBookingController::class, 'index'])->name('member.index');
-        Route::get('/member/booking/index', [MemberBookingController::class, 'index'])->name('member.booking.index');
+
+        Route::resource('/member/vehicle/', MemberVehicleController::class);
     });
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout.post');

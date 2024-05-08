@@ -65,7 +65,7 @@ class AuthController extends Controller
             'password' => 'required|confirmed',
         ]);
         // if ($request->file('photo')) {
-        //     $validatedData['photo'] = $request->file('photo')->store('photo-profil');
+        //     $validatedData['photo'] = $request->file('photo')->store('user-photo');
         // };
         $user = User::create([
             'name' => $validatedData['name'],

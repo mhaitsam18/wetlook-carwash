@@ -23,6 +23,7 @@ class UserTableSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('1234'),
             'role' => 'admin',
+            'photo' => 'user-photo/administrator.png',
         ]);
         Admin::create([
             'user_id' => $user_admin->id
@@ -33,6 +34,7 @@ class UserTableSeeder extends Seeder
             'username' => 'member',
             'password' => Hash::make('1234'),
             'role' => 'member',
+            'photo' => 'user-photo/aldin.jpg',
         ]);
         $member = Member::create([
             'user_id' => $user_member->id,
