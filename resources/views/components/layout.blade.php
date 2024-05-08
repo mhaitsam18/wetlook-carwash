@@ -127,7 +127,7 @@
                     <div class="col-12">
                         <!-- Header Main Menu -->
                         <div class="main-menu">
-                            <x-navbar :wide="true"></x-navbar>
+                            <x-navbar :mobile="false"></x-navbar>
                         </div> <!-- Header Main Menu Start -->
                     </div>
                 </div>
@@ -198,7 +198,7 @@
             <div class="mobile-menu-bottom">
                 <!-- Start Mobile Menu Nav -->
                 <div class="offcanvas-menu">
-                    <x-navbar :wide="false"></x-navbar>
+                    <x-navbar :mobile="true"></x-navbar>
                 </div> <!-- End Mobile Menu Nav -->
 
                 <!-- Mobile Manu Mail Address -->
