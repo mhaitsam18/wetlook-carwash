@@ -214,7 +214,9 @@
 
 
     <div class="offcanvas-overlay"></div>
-    <x-header>{{ $title }}</x-header>
+    @if (!request()->is('/'))
+        <x-header>{{ $title }}</x-header>
+    @endif
 
     {{ $slot }}
 
