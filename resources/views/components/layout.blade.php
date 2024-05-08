@@ -29,8 +29,7 @@
     <!-- <link rel="stylesheet" href="/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="/css/plugins/plugins.min.css">
     <link rel="stylesheet" href="/css/style.min.css"> -->
-
-
+    {!! $style ?? false !!}
 
 </head>
 
@@ -302,6 +301,7 @@
 
     <!-- Main JS -->
     <script src="/js/main.js"></script>
+    {!! $script ?? false !!}
 
 </body>
 
