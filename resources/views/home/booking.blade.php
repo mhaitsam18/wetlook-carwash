@@ -1,5 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <x-slot:style></x-slot:style>
     <div class="booking">
         <div class="container">
             <div class="row">
@@ -66,4 +67,6 @@
             </div>
         </div>
     </div> <!-- ...:::: End Customer Login Section :::... -->
+    <x-slot:script></x-slot:script>
+    <x-slot:modal></x-slot:modal>
 </x-layout>

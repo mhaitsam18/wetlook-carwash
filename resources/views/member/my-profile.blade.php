@@ -1,6 +1,5 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-
     <x-slot:style></x-slot:style>
     <!-- ...:::: Start Account Dashboard Section:::... -->
     <div class="account_dashboard">
@@ -203,4 +202,5 @@
             });
         </script>
     </x-slot:script>
+    <x-slot:modal></x-slot:modal>
 </x-layout>

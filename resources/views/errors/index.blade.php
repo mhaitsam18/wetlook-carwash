@@ -1,5 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <x-slot:style></x-slot:style>
     <!-- ...:::: Start Error Section :::... -->
     <div class="error-section">
         <div class="container">
@@ -23,4 +24,6 @@
             </div>
         </div>
     </div> <!-- ...:::: End Error Section :::... -->
+    <x-slot:script></x-slot:script>
+    <x-slot:modal></x-slot:modal>
 </x-layout>

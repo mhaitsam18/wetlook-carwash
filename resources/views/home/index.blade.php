@@ -1,5 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
+    <x-slot:style></x-slot:style>
     <div class="hero-area">
         <div class="hero-area-wrapper hero-slider-dots fix-slider-dots">
             <div class="hero-area-single">
@@ -28,8 +29,7 @@
                     <div class="col-12">
                         <div class="banner-single" data-aos="fade-up" data-aos-delay="0">
                             <a href="product-details-default.html" class="banner-img-link">
-                                <img class="banner-img banner-img-big"
-                                    src="/img/package.jpeg" alt="">
+                                <img class="banner-img banner-img-big" src="/img/package.jpeg" alt="">
                             </a>
                         </div>
                     </div>
@@ -37,4 +37,6 @@
             </div>
         </div>
     </div>
+    <x-slot:script></x-slot:script>
+    <x-slot:modal></x-slot:modal>
 </x-layout>
