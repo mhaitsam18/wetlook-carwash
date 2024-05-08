@@ -12,7 +12,10 @@ class MemberVehicleController extends Controller
      */
     public function index()
     {
-        //
+        return view('member.vehicle.index', [
+            'title' => 'Kendaraan Saya',
+            'vehicles' => Vehicle::where('member_id', auth()->user()->member->id),
+        ]);
     }
 
     /**
@@ -20,7 +23,9 @@ class MemberVehicleController extends Controller
      */
     public function create()
     {
-        //
+        return view('member.vehicle.create', [
+            'title' => 'Tambah Kendaraan'
+        ]);
     }
 
     /**
@@ -28,7 +33,25 @@ class MemberVehicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'member_id' => 'nullable',
+            'plate_number' => 'required|string',
+            'type' => 'required|integer',
+            'model' => 'required|string',
+            'make' => 'required|string',
+            'colour' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3145728',
+        ]);
+        if (!$request->filled('member_id')) {
+            $validateData['member_id'] = auth()->user()->member->id;
+        }
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('vehicle-image');
+            $validateData['image'] = $path;
+        }
+
+        Vehicle::create($validateData);
+        return redirect('/member/vehicle')->with('success', 'Data Kendaraan berhasil ditambahkan');
     }
 
     /**
@@ -36,7 +59,10 @@ class MemberVehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        //
+        return view('member.vehicle.show', [
+            'title' => 'Detail Kendaraan',
+            'vehicle' => $vehicle
+        ]);
     }
 
     /**
@@ -44,7 +70,10 @@ class MemberVehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        //
+        return view('member.vehicle.edit', [
+            'title' => 'Edit Kendaraan',
+            'vehicle' => $vehicle
+        ]);
     }
 
     /**
@@ -52,7 +81,23 @@ class MemberVehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle)
     {
-        //
+        $validateData = $request->validate([
+            'member_id' => 'nullable',
+            'plate_number' => 'required|string',
+            'type' => 'required|integer',
+            'model' => 'required|string',
+            'make' => 'required|string',
+            'colour' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3145728',
+        ]);
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('vehicle-image');
+            $validateData['image'] = $path;
+        } else {
+            $validateData['image'] = $vehicle->image;
+        }
+        $vehicle->update($validateData);
+        return redirect('/member/vehicle')->with('success', 'Data kendaraan berhasil diubah');
     }
 
     /**
@@ -60,6 +105,7 @@ class MemberVehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
-        //
+        $vehicle->delete();
+        return redirect('/member/vehicle')->with('success', 'Data Kendaraan berhasil dihapus');
     }
 }

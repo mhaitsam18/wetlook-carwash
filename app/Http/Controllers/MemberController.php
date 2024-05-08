@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use App\Models\User;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +20,7 @@ class MemberController extends Controller
         return view('member.my-profile', [
             'title' => 'Profil Saya',
             'profile' => Auth::user(),
+            'vehicles' => Vehicle::where('member_id', auth()->user()->member->id)->get(),
         ]);
     }
 
