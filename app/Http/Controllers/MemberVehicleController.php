@@ -14,7 +14,7 @@ class MemberVehicleController extends Controller
     {
         return view('member.vehicle.index', [
             'title' => 'Kendaraan Saya',
-            'vehicles' => Vehicle::where('member_id', auth()->user()->member->id),
+            'vehicles' => Vehicle::where('member_id', auth()->user()->member->id)->get(),
         ]);
     }
 
