@@ -21,6 +21,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::middleware('member')->group(function () {
         Route::prefix('member')->group(function () {
+            Route::resource('vehicle', MemberVehicleController::class);
             Route::get('/my-profile', [MemberController::class, 'index'])->name('member.my-profile');
             Route::get('/index', [MemberBookingController::class, 'index'])->name('member.index');
             Route::get('/booking/index', [MemberBookingController::class, 'index'])->name('member.booking.index');
@@ -31,8 +32,6 @@ Route::middleware('auth')->group(function () {
 
 
         Route::get('/booking', [MemberBookingController::class, 'index'])->name('booking');
-
-        Route::resource('/member/vehicle/', MemberVehicleController::class);
     });
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout.post');

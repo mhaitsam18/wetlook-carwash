@@ -36,11 +36,18 @@ class MemberVehicleController extends Controller
         $validateData = $request->validate([
             'member_id' => 'nullable',
             'plate_number' => 'required|string',
-            'type' => 'required|integer',
-            'model' => 'required|string',
+            'type' => 'required',
             'make' => 'required|string',
+            'model' => 'required|string',
             'colour' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3145728',
+        ], [], [
+            'plate_number' => 'plat nomor',
+            'type' => 'tipe kendaraan',
+            'make' => 'merek motor',
+            'model' => 'model',
+            'colour' => 'warna',
+            'image' => 'gambar',
         ]);
         if (!$request->filled('member_id')) {
             $validateData['member_id'] = auth()->user()->member->id;
@@ -84,11 +91,18 @@ class MemberVehicleController extends Controller
         $validateData = $request->validate([
             'member_id' => 'nullable',
             'plate_number' => 'required|string',
-            'type' => 'required|integer',
-            'model' => 'required|string',
+            'type' => 'required',
             'make' => 'required|string',
+            'model' => 'required|string',
             'colour' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3145728',
+        ], [], [
+            'plate_number' => 'plat nomor',
+            'type' => 'tipe kendaraan',
+            'make' => 'merek motor',
+            'model' => 'model',
+            'colour' => 'warna',
+            'image' => 'gambar',
         ]);
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('vehicle-image');
