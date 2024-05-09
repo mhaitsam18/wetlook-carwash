@@ -216,7 +216,7 @@
         <x-header>{{ $title }}</x-header>
     @endif
 
-    @if (session()->has('error') || $errors->any())
+    @if (session()->has('error') || (isset($errors) && $errors->any()))
         <x-alert type="error" :message="session()->get('error') ? session()->get('error') : 'Terjadi Kesalahan'" :colour="'danger'" />
     @endif
     @if (session()->has('success'))
