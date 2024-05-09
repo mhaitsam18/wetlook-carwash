@@ -9,7 +9,10 @@
                         <nav aria-label="breadcrumb">
                             <ul>
                                 <li><a href="/">Beranda</a></li>
-                                {{-- <li><a href="/">Beranda</a></li> --}}
+                                {!! $headers ?? false !!}
+                                {{-- @foreach ($headers as $header)
+                                    <li><a href="{{ $header['href'] }}">{{ $header['slot'] }}</a></li>
+                                @endforeach --}}
                                 <li class="active" aria-current="page">{{ $slot }}</li>
                             </ul>
                         </nav>

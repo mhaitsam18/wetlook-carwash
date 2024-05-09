@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class MemberVehicleController extends Controller
 {
+    public $headers = [];
+
+    public function __construct()
+    {
+        $this->headers = [[
+            'href' => '/member/vehicle',
+            'slot' => 'Kendaraan Saya'
+        ]];
+    }
     /**
      * Display a listing of the resource.
      */
@@ -24,7 +33,8 @@ class MemberVehicleController extends Controller
     public function create()
     {
         return view('member.vehicle.create', [
-            'title' => 'Tambah Kendaraan'
+            'title' => 'Tambah Kendaraan',
+            'headers' => $this->headers
         ]);
     }
 
@@ -68,7 +78,8 @@ class MemberVehicleController extends Controller
     {
         return view('member.vehicle.show', [
             'title' => 'Detail Kendaraan',
-            'vehicle' => $vehicle
+            'vehicle' => $vehicle,
+            'headers' => $this->headers
         ]);
     }
 
@@ -78,8 +89,9 @@ class MemberVehicleController extends Controller
     public function edit(Vehicle $vehicle)
     {
         return view('member.vehicle.edit', [
-            'title' => 'Edit Kendaraan',
-            'vehicle' => $vehicle
+            'title' => 'Sunting Kendaraan',
+            'vehicle' => $vehicle,
+            'headers' => $this->headers
         ]);
     }
 

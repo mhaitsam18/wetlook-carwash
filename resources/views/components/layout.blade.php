@@ -142,7 +142,6 @@
                     <div class="col-12 d-flex justify-content-between align-items-center">
                         <div class="mobile-header--left">
                             <a href="/" class="mobile-logo-link">
-                                {{-- <img src="/images/logo/logo.png" alt="" class="mobile-logo-img"> --}}
                                 <img src="/img/logo-mini.png" alt="" class="mobile-logo-img">
                             </a>
                         </div>
@@ -213,7 +212,10 @@
 
     <div class="offcanvas-overlay"></div>
     @if (!request()->is('/'))
-        <x-header>{{ $title }}</x-header>
+        <x-header>
+            <x-slot:headers>{!! $headers ?? false !!}</x-slot:headers>
+            {{ $title ?? false }}
+        </x-header>
     @endif
 
     @if (session()->has('error') || (isset($errors) && $errors->any()))
