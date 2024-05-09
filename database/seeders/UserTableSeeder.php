@@ -46,8 +46,8 @@ class UserTableSeeder extends Seeder
             'member_id' => $member->id,
             'plate_number' => 'D 5683 ABY',
             'type' => 'motorcycle',
-            'model' => 'Honda',
-            'make' => 'Vario CBS 125',
+            'make' => 'Honda',
+            'model' => 'Vario CBS 125',
             'colour' => 'Hitam',
             'image' => 'vehicle/vario-cbs.jpg',
         ]);
@@ -55,8 +55,8 @@ class UserTableSeeder extends Seeder
             'member_id' => $member->id,
             'plate_number' => 'B 1725 UAD',
             'type' => 'car',
-            'model' => 'Toyota',
-            'make' => 'Toyota Vios',
+            'make' => 'Toyota',
+            'model' => 'Toyota Vios',
             'colour' => 'Biru Metalic',
             'image' => 'vehicle/vios.jpg',
         ]);

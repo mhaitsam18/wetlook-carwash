@@ -19,8 +19,8 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('plate_number')->nullable();
             $table->enum('type', ['car', 'motorcycle'])->nullable();
-            $table->string('model')->nullable();
             $table->string('make')->nullable();
+            $table->string('model')->nullable();
             $table->string('colour')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

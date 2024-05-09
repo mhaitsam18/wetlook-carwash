@@ -172,8 +172,8 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $vehicle->plate_number }}</td>
                                                 <td>{{ $vehicle->type == 'car' ? 'Mobil' : 'Motor' }}</td>
-                                                <td>{{ $vehicle->model }}</td>
                                                 <td>{{ $vehicle->make }}</td>
+                                                <td>{{ $vehicle->model }}</td>
                                                 <td>{{ $vehicle->colour }}</td>
                                                 <td><img src="{{ asset('storage/' . $vehicle->image) }}"
                                                         class="img-thumbnail"></td>
