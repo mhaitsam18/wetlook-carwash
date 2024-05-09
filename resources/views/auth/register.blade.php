@@ -13,8 +13,7 @@
                             <div class="row">
                                 <div class="default-form-box mb-20 col-6">
                                     <label>Email <span>*</span></label>
-                                    <input type="email" name="email" id="email"
-                                        value="{{ old('email_or_username') }}">
+                                    <input type="email" name="email" id="email" value="{{ old('email') }}">
                                     @error('email')
                                         <div class="text-danger fs-6">
                                             {{ $message }}
