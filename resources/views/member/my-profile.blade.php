@@ -82,7 +82,6 @@
                                                 @enderror
                                             </div>
                                             <div class="default-form-box mb-20">
-
                                                 <img src="{{ asset('storage/' . $profile->photo) }}"
                                                     class="img-thumbnail img-preview"
                                                     style="width: 200px; max-height:500px;">
