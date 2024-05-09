@@ -25,13 +25,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/my-profile', [MemberController::class, 'index'])->name('member.my-profile');
             Route::get('/index', [MemberBookingController::class, 'index'])->name('member.index');
             Route::get('/booking/index', [MemberBookingController::class, 'index'])->name('member.booking.index');
+
+            Route::resource('booking', MemberBookingController::class);
         });
         Route::get('/my-profile', [MemberController::class, 'index'])->name('my-profile');
         Route::put('/my-profile/{member}', [MemberController::class, 'update'])->name('update.member');
         Route::put('/change-password/{user}', [MemberController::class, 'updatePassword'])->name('update.password');
 
 
-        Route::get('/booking', [MemberBookingController::class, 'index'])->name('booking');
+        Route::get('/booking', [MemberBookingController::class, 'create'])->name('booking');
     });
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout.post');

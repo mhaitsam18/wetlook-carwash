@@ -16,7 +16,8 @@
                                     <option value="" selected disabled>Pilih Kendaraan</option>
                                     @foreach ($vehicles as $vehicle)
                                         <option value="{{ $vehicle->id }}">
-                                            {{ $vehicle->make }} | {{ $vehicle->plate_number }}</option>
+                                            {{ $vehicle->plate_number }} | {{ $vehicle->make }} | {{ $vehicle->model }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @error('vehicle_id')
@@ -41,7 +42,8 @@
                             </div>
                             <div class="default-form-box mb-20">
                                 <label>Tanggal <span>*</span></label>
-                                <input type="date" name="date" id="date">
+                                <input type="date" name="date" id="date" min="{{ date('Y-m-d') }}"
+                                    max="{{ date('Y-m-d', strtotime('+1 week')) }}">
                                 @error('date')
                                     <div class="text-danger fs-6">
                                         {{ $message }}
@@ -50,14 +52,35 @@
                             </div>
                             <div class="default-form-box mb-20">
                                 <label>Waktu Tersedia <span>*</span></label>
-                                <select name="time" id="time" class="w-100"></select>
+                                {{-- <input type="time" id="timeInput" name="time" min="00:00" max="23:00"
+                                    step="3600">
+
+                                <script>
+                                    document.getElementById('timeInput').addEventListener('input', function() {
+                                        var timeValue = this.value;
+                                        var hour = timeValue.split(':')[0];
+                                        if (hour !== '00') {
+                                            this.value = '00:00';
+                                        }
+                                    });
+                                </script> --}}
+                                <select name="time" id="time" class="w-100">
+                                    @for ($hour = 0; $hour < 24; $hour++)
+                                        @php
+                                            $formattedHour = str_pad($hour, 2, '0', STR_PAD_LEFT);
+                                            $hourPlusOne = str_pad(($hour + 1) % 24, 2, '0', STR_PAD_LEFT);
+                                        @endphp
+                                        <option value="{{ $formattedHour }}:00">{{ $formattedHour }}:00 -
+                                            {{ $hourPlusOne }}:00</option>
+                                    @endfor
+                                </select>
                                 @error('time')
                                     <div class="text-danger fs-6">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                            <div class="login_submit">
+                            <div class="login_submit" style="margin-top: 60px; text-align: right;">
                                 <button class="mb-20" type="submit">Booking</button>
                             </div>
                         </form>
@@ -67,6 +90,7 @@
             </div>
         </div>
     </div> <!-- ...:::: End Customer Login Section :::... -->
-    <x-slot:script></x-slot:script>
+    <x-slot:script>
+    </x-slot:script>
     <x-slot:modal></x-slot:modal>
 </x-layout>

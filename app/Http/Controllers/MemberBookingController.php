@@ -12,12 +12,19 @@ class MemberBookingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request,)
+    public function index()
     {
-        return view('home.booking', [
-            'title' => 'Booking',
-            'packages' => Package::all(),
-            'vehicles' => Vehicle::where('member_id', $request->session()->get('member_id'))->get()
+        return view('member.booking.index', [
+            'title' => 'Histori Pemesanan Saya',
+            'bookings' => Booking::where('member_id', auth()->user()->member->id)->get(),
+        ]);
+    }
+
+    public function booking()
+    {
+        return view('member.booking.booking', [
+            'title' => 'Bookingan Saya',
+            'bookings' => Booking::where('member_id', auth()->user()->member->id)->where('status', 'pending')->get(),
         ]);
     }
 
@@ -26,7 +33,11 @@ class MemberBookingController extends Controller
      */
     public function create()
     {
-        //
+        return view('member.booking.create', [
+            'title' => 'Booking',
+            'packages' => Package::all(),
+            'vehicles' => Vehicle::where('member_id', auth()->user()->member->id)->get()
+        ]);
     }
 
     /**
@@ -34,7 +45,21 @@ class MemberBookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'package_id' => 'required',
+            'vehicle_id' => 'required',
+            'member_id' => 'nullable',
+            'date' => 'required',
+            'time' => 'required',
+        ], [], [
+            'package_id' => 'paket',
+            'vehicle_id' => 'kendaraan',
+            'date' => 'tanggal',
+            'time' => 'waktu',
+        ]);
+
+        Booking::create($validateData);
+        return redirect('/member/booking')->with('success', 'Booking berhasil');
     }
 
     /**
@@ -42,7 +67,10 @@ class MemberBookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        //
+        return view('member.booking.show', [
+            'title' => 'Detail Booking',
+            'booking' => $booking,
+        ]);
     }
 
     /**
@@ -50,7 +78,12 @@ class MemberBookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        //
+        return view('member.booking.edit', [
+            'title' => 'Booking',
+            'booking' => $booking,
+            'packages' => Package::all(),
+            'vehicles' => Vehicle::where('member_id', auth()->user()->member->id)->get()
+        ]);
     }
 
     /**
@@ -58,7 +91,21 @@ class MemberBookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        //
+        $validateData = $request->validate([
+            'package_id' => 'required',
+            'vehicle_id' => 'required',
+            'member_id' => 'nullable',
+            'date' => 'required',
+            'time' => 'required',
+        ], [], [
+            'package_id' => 'paket',
+            'vehicle_id' => 'kendaraan',
+            'date' => 'tanggal',
+            'time' => 'waktu',
+        ]);
+
+        $booking->update($validateData);
+        return redirect('/member/booking')->with('success', 'Booking diperbarui');
     }
 
     /**
@@ -66,6 +113,7 @@ class MemberBookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        //
+        $booking->delete();
+        return redirect('/member/booking')->with('success', 'Data Booking dihapus / dibatalkan');
     }
 }
