@@ -21,8 +21,19 @@ return new class extends Migration
                 ->constrained('vehicles')
                 ->onUpdate('cascade')
                 ->nullOnDelete();
+            $table->foreignId('member_id')->nullable()
+                ->constrained('members')
+                ->onUpdate('cascade')
+                ->nullOnDelete();
             $table->date('date');
             $table->time('time');
+            $table->enum('status', [
+                'pending',
+                'confirmed',
+                'cancelled',
+                'completed'
+            ])->default('pending')->nullable();
+
             $table->timestamps();
         });
     }

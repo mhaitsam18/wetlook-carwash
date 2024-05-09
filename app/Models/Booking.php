@@ -20,6 +20,7 @@ class Booking extends Model
     protected $with = [
         'package',
         'vehicle',
+        'member',
     ];
 
     public function package(): BelongsTo
@@ -30,6 +31,11 @@ class Booking extends Model
     public function vehicle(): BelongsTo
     {
         return $this->belongsTo(Vehicle::class);
+    }
+
+    public function member(): BelongsTo
+    {
+        return $this->belongsTo(Member::class);
     }
 
     public function order(): HasOne
