@@ -17,6 +17,8 @@ class MemberBookingController extends Controller
         return view('member.booking.index', [
             'title' => 'Histori Pemesanan Saya',
             'bookings' => Booking::where('member_id', auth()->user()->member->id)->get(),
+            'packages' => Package::all(),
+            'vehicles' => Vehicle::where('member_id', auth()->user()->member->id)->get()
         ]);
     }
 
