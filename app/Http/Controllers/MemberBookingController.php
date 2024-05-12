@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Order;
 use App\Models\Package;
 use App\Models\Vehicle;
 use Illuminate\Support\Carbon;
@@ -62,7 +63,14 @@ class MemberBookingController extends Controller
             'time' => 'waktu',
         ]);
 
-        Booking::create($validateData);
+        $booking = Booking::create($validateData);
+        Order::create(
+            [
+                'booking_id' => $booking->id,
+                'total_price' => $booking->package->price,
+                'status' => $booking->status,
+            ]
+        );
         return redirect('/member/booking')->with('success', 'Booking berhasil');
     }
 

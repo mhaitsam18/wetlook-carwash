@@ -19,6 +19,7 @@ return new class extends Migration
                 ->nullOnDelete();
             $table->double('total_price')->nullable();
             $table->string('status')->nullable();
+            $table->string('customer_records')->nullable();
             $table->timestamps();
         });
     }
