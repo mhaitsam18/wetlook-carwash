@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Package;
 use App\Models\Vehicle;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 
 class MemberBookingController extends Controller
@@ -24,9 +25,10 @@ class MemberBookingController extends Controller
 
     public function booking()
     {
+        $currentDate = Carbon::now()->toDateString();
         return view('member.booking.booking', [
             'title' => 'Bookingan Saya',
-            'bookings' => Booking::where('member_id', auth()->user()->member->id)->where('status', 'pending')->get(),
+            'bookings' => Booking::where('member_id', auth()->user()->member->id)->whereDate('date', '>=', $currentDate)->get(),
         ]);
     }
 

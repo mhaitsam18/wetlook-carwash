@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/change-password/{user}', [MemberController::class, 'updatePassword'])->name('update.password');
 
 
-        Route::get('/booking', [MemberBookingController::class, 'create'])->name('booking');
+        Route::get('/bookingan-saya', [MemberBookingController::class, 'booking'])->name('booking');
     });
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout.post');

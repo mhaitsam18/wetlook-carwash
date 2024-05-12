@@ -8,8 +8,10 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="account_form" data-aos="fade-up" data-aos-delay="0">
                         <h3>Booking</h3>
-                        <form action="/booking" method="POST">
+                        <form action="/member/booking" method="POST">
                             @csrf
+                            <input type="hidden" name="member_id" id="member_id"
+                                value="{{ auth()->user()->member->id }}">
                             <div class="default-form-box mb-20">
                                 <label>Kendaraan <span>*</span></label>
                                 <select name="vehicle_id" id="vehicle_id" class="w-100">
@@ -20,6 +22,8 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                <a href="/member/vehicle/create" class="text-primary fs-6">Jika Data Kendaraan Tidak
+                                    Tersedia? klik di sini</a>
                                 @error('vehicle_id')
                                     <div class="text-danger fs-6">
                                         {{ $message }}
@@ -65,6 +69,7 @@
                                     });
                                 </script> --}}
                                 <select name="time" id="time" class="w-100">
+                                    <option value="" selected disabled>Pilih Waktu</option>
                                     @for ($hour = 0; $hour < 24; $hour++)
                                         @php
                                             $formattedHour = str_pad($hour, 2, '0', STR_PAD_LEFT);
@@ -87,6 +92,10 @@
                     </div>
                 </div>
                 <!--login area start-->
+                <div class="col-lg-6 col-md-6">
+
+                    <img class="banner-img banner-img-big" src="/img/package.jpeg" alt="">
+                </div>
             </div>
         </div>
     </div> <!-- ...:::: End Customer Login Section :::... -->

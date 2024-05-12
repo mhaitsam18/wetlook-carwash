@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,5 +25,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::define('admin', fn (User $user) => $user->isAdmin());
         Gate::define('member', fn (User $user) => $user->isMember());
+        View::composer('*', function ($view) {
+            $view->with('carbon', new Carbon());
+        });
     }
 }

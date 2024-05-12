@@ -7,7 +7,7 @@
         <ul class="{{ $mobile ? 'mobile-sub-menu' : 'sub-menu' }}">
             @if ($slot == 'Pesanan Saya')
                 @foreach ($submenus as $submenu)
-                    <li><a href="{{ $submenu['href'] }}">{{ $submenu['slot'] }}</a></li>
+                    <li><a href="/{{ $submenu['href'] }}">{{ $submenu['slot'] }}</a></li>
                 @endforeach
             @endif
         </ul>

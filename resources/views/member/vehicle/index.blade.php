@@ -1,12 +1,12 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-slot:style></x-slot:style>
-    <!-- ...:::: Start Account Dashboard Section:::... -->
     <div class="account_dashboard">
         <div class="container">
             <h4>Kendaraan Saya</h4>
             <a href="/member/vehicle/create" class="btn btn-danger btn-sm mb-3">Tambah
                 Kendaraan</a>
+            <a href="/member/booking/create" class="btn btn-danger btn-sm mb-3">Booking</a>
             <div class="table_page table-responsive">
                 <table>
                     <thead>

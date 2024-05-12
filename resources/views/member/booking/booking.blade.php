@@ -31,8 +31,12 @@
                                 <td>{{ $booking->status }}</td>
                                 <td>{{ $carbon->parse($booking->created_at)->isoFormat('LL') }}</td>
                                 <td>
-                                    <a href="/member/booking/{{ $booking->id }}"
-                                        class="btn btn-sm btn-primary">Detail</a>
+                                    <form action="/member/booking/{{ $booking->id }}" method="post">
+                                        @method('delete')
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $booking->id }}">
+                                        <button type="submit" class="btn btn-sm btn-danger tombol-hapus">Batal</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

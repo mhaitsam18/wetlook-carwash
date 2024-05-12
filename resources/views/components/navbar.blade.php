@@ -3,11 +3,11 @@
     $submenu = [
         'pesanan-saya' => [
             [
-                'href' => 'bookings',
+                'href' => 'bookingan-saya',
                 'slot' => 'Bookingan Saya',
             ],
             [
-                'href' => 'history',
+                'href' => 'member/booking',
                 'slot' => 'Histori Pemesanan',
             ],
         ],
@@ -17,7 +17,7 @@
     <ul>
         <x-nav-link href="/" :active="request()->is('/')">Beranda</x-nav-link>
         @can('member')
-            <x-nav-link href="/booking" :active="request()->is('booking')">Booking</x-nav-link>
+            <x-nav-link href="/member/booking/create" :active="request()->is('member/booking/craete')">Booking</x-nav-link>
             <x-nav-link href="#" :active="Str::startsWith(request()->path(), 'my-orders')" :dropdown="'has-dropdown'" :submenus="$submenu['pesanan-saya']" :mobile="$mobile">
                 Pesanan Saya
             </x-nav-link>
