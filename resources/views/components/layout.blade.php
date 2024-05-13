@@ -7,28 +7,28 @@
     <title>{{ $title ?? 'Wetlook Carwash' }} | Wetlook Carwash</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <link rel="shortcut icon" href="/img/wetlook-logo.ico" type="image/png">
+    <link rel="shortcut icon" href="/assets/img/wetlook-logo.ico" type="image/png">
 
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
     <!-- Vendor CSS -->
-    <link rel="stylesheet" href="/css/vendor/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/vendor/plaza-icon.css">
-    <link rel="stylesheet" href="/css/vendor/jquery-ui.min.css">
+    <link rel="stylesheet" href="/assets-aments/css/vendor/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets-aments/css/vendor/plaza-icon.css">
+    <link rel="stylesheet" href="/assets-aments/css/vendor/jquery-ui.min.css">
 
     <!-- Plugin CSS -->
-    <link rel="stylesheet" href="/css/plugins/slick.css">
-    <link rel="stylesheet" href="/css/plugins/animate.min.css">
-    <link rel="stylesheet" href="/css/plugins/aos.min.css">
-    <link rel="stylesheet" href="/css/plugins/nice-select.css">
-    <link rel="stylesheet" href="/css/plugins/venobox.min.css">
+    <link rel="stylesheet" href="/assets-aments/css/plugins/slick.css">
+    <link rel="stylesheet" href="/assets-aments/css/plugins/animate.min.css">
+    <link rel="stylesheet" href="/assets-aments/css/plugins/aos.min.css">
+    <link rel="stylesheet" href="/assets-aments/css/plugins/nice-select.css">
+    <link rel="stylesheet" href="/assets-aments/css/plugins/venobox.min.css">
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/assets-aments/css/style.css">
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
-    <!-- <link rel="stylesheet" href="/css/vendor/vendor.min.css">
-    <link rel="stylesheet" href="/css/plugins/plugins.min.css">
-    <link rel="stylesheet" href="/css/style.min.css"> -->
+    <!-- <link rel="stylesheet" href="/assets-aments/css/vendor/vendor.min.css">
+    <link rel="stylesheet" href="/assets-aments/css/plugins/plugins.min.css">
+    <link rel="stylesheet" href="/assets-aments/css/style.min.css"> -->
     {!! $style ?? false !!}
 
 </head>
@@ -71,9 +71,9 @@
                                     <!-- Header Top Menu's Dropdown -->
                                     <ul class="user-sub-menu">
                                         <li><a href=""><img class="user-sub-menu-in-icon"
-                                                    src="/images/icon/lang-en.png" alt=""> English</a></li>
+                                                    src="/assets-aments/images/icon/lang-en.png" alt=""> English</a></li>
                                         <li><a href=""><img class="user-sub-menu-in-icon"
-                                                    src="/images/icon/lang-gr.png" alt=""> Germany</a></li>
+                                                    src="/assets-aments/images/icon/lang-gr.png" alt=""> Germany</a></li>
                                     </ul>
                                 </li>
                                 <li><a href=""><i class="icon-repeat"></i> Compare (0)</a></li>
@@ -89,7 +89,7 @@
                 <div class="row d-flex justify-content-between align-items-center">
                     <div class="col-3">
                         <div class="header-logo">
-                            <a href="/"><img src="/img/logo-mini.png" alt=""></a>
+                            <a href="/"><img src="/assets/img/logo-mini.png" alt=""></a>
                         </div>
                     </div>
                     <div class="col-6">
@@ -142,7 +142,7 @@
                     <div class="col-12 d-flex justify-content-between align-items-center">
                         <div class="mobile-header--left">
                             <a href="/" class="mobile-logo-link">
-                                <img src="/img/logo-mini.png" alt="" class="mobile-logo-img">
+                                <img src="/assets/img/logo-mini.png" alt="" class="mobile-logo-img">
                             </a>
                         </div>
                         <div class="mobile-header--right">
@@ -175,7 +175,7 @@
             <div class="mobile-menu-center">
                 <div class="mobile-menu-customer-support">
                     <div class="mobile-menu-customer-support-icon">
-                        <img src="/images/icon/support-icon.png" alt="">
+                        <img src="/assets-aments/images/icon/support-icon.png" alt="">
                     </div>
                     <div class="mobile-menu-customer-support-text">
                         <span>Customer Support</span>
@@ -242,7 +242,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-5">
                         <div class="footer-widget footer-widget-contact" data-aos="fade-up" data-aos-delay="0">
                             <div class="footer-logo">
-                                <a href="/"><img src="/img/logo-mini.png" alt=""
+                                <a href="/"><img src="/assets/img/logo-mini.png" alt=""
                                         class="img-fluid"></a>
                             </div>
                             <div class="footer-contact">
@@ -250,7 +250,7 @@
                                     Bogor, Jawa Barat 16114</p>
                                 <div class="customer-support">
                                     <div class="customer-support-icon">
-                                        <img src="/images/icon/support-icon.png" alt="">
+                                        <img src="/assets-aments/images/icon/support-icon.png" alt="">
                                     </div>
                                     <div class="customer-support-text">
                                         <span>Customer Support</span>
@@ -283,8 +283,8 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="footer-payment">
-                            <a href=""><img class="img-fluid" src="/images/icon/payment-icon.png"
-                                    alt=""></a>
+                            <a href=""><img class="img-fluid"
+                                    src="/assets-aments/images/icon/payment-icon.png" alt=""></a>
                         </div>
                     </div>
                 </div>
@@ -295,26 +295,26 @@
 
     <!-- ::::::::::::::All JS Files here :::::::::::::: -->
     <!-- Global Vendor, plugins JS -->
-    <script src="/js/vendor/modernizr-3.11.2.min.js"></script>
-    <script src="/js/vendor/jquery-3.5.1.min.js"></script>
-    <script src="/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-    <script src="/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="/js/vendor/jquery-ui.min.js"></script>
+    <script src="/assets-aments/js/vendor/modernizr-3.11.2.min.js"></script>
+    <script src="/assets-aments/js/vendor/jquery-3.5.1.min.js"></script>
+    <script src="/assets-aments/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="/assets-aments/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/assets-aments/js/vendor/jquery-ui.min.js"></script>
 
     <!--Plugins JS-->
-    <script src="/js/plugins/slick.min.js"></script>
-    <script src="/js/plugins/material-scrolltop.js"></script>
-    <script src="/js/plugins/jquery.nice-select.min.js"></script>
-    <script src="/js/plugins/jquery.zoom.min.js"></script>
-    <script src="/js/plugins/venobox.min.js"></script>
-    <script src="/js/plugins/aos.min.js"></script>
+    <script src="/assets-aments/js/plugins/slick.min.js"></script>
+    <script src="/assets-aments/js/plugins/material-scrolltop.js"></script>
+    <script src="/assets-aments/js/plugins/jquery.nice-select.min.js"></script>
+    <script src="/assets-aments/js/plugins/jquery.zoom.min.js"></script>
+    <script src="/assets-aments/js/plugins/venobox.min.js"></script>
+    <script src="/assets-aments/js/plugins/aos.min.js"></script>
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
-    <!-- <script src="/js/vendor.min.js"></script>
-    <script src="/js/plugins.min.js"></script> -->
+    <!-- <script src="/assets-aments/js/vendor.min.js"></script>
+    <script src="/assets-aments/js/plugins.min.js"></script> -->
 
     <!-- Main JS -->
-    <script src="/js/main.js"></script>
+    <script src="/assets-aments/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>

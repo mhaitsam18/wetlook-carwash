@@ -5,7 +5,7 @@
         <div class="hero-area-wrapper hero-slider-dots fix-slider-dots">
             <div class="hero-area-single">
                 <div class="hero-area-bg">
-                    <img class="hero-img" src="/img/frame-1.png" alt="">
+                    <img class="hero-img" src="/assets/img/frame-1.png" alt="">
                 </div>
                 <div class="hero-content">
                     <div class="container">
@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="banner-single" data-aos="fade-up" data-aos-delay="0">
                             <a href="product-details-default.html" class="banner-img-link">
-                                <img class="banner-img banner-img-big" src="/img/package.jpeg" alt="">
+                                <img class="banner-img banner-img-big" src="/assets/img/package.jpeg" alt="">
                             </a>
                         </div>
                     </div>
