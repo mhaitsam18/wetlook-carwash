@@ -48,8 +48,8 @@ Route::middleware('auth')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::get('/index', [AdminController::class, 'index'])->name('admin.index');
             Route::get('/my-profile', [AdminController::class, 'index'])->name('admin.my-profile');
-            Route::put('/my-profile/{admin}', [AdminController::class, 'update'])->name('update.admin');
-            Route::put('/change-password/{user}', [AdminController::class, 'updatePassword'])->name('update.password-admin');
+            Route::put('/my-profile/{admin}', [AdminController::class, 'update'])->name('admin.my-profile.update');
+            Route::put('/change-password/{user}', [AdminController::class, 'updatePassword'])->name('admin.password.update');
 
             Route::resource('admin', AdminAdminController::class);
             Route::resource('member', AdminMemberController::class);
