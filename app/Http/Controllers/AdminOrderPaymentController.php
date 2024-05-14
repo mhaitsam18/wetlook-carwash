@@ -20,7 +20,6 @@ class AdminOrderPaymentController extends Controller
         ];
     }
 
-
     public function addDynamicHeader(Order $order)
     {
         $this->headers[] = [

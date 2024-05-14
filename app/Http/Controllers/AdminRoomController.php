@@ -7,12 +7,26 @@ use Illuminate\Http\Request;
 
 class AdminRoomController extends Controller
 {
+    public $headers = [];
+
+    public function __construct()
+    {
+        $this->headers = [
+            [
+                'href' => '/admin/room',
+                'slot' => 'Data Ruang'
+            ],
+        ];
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('admin.room.index', [
+            'title' => 'Data Ruang',
+            'rooms' => Room::all(),
+        ]);
     }
 
     /**
@@ -20,7 +34,10 @@ class AdminRoomController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.room.create', [
+            'title' => 'Tambah Ruang',
+            'headers' => $this->headers
+        ]);
     }
 
     /**
@@ -28,7 +45,16 @@ class AdminRoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'type' => 'required|string',
+            'amount' => 'required|integer',
+        ], [], [
+            'type' => 'tipe',
+            'amount' => 'jumlah',
+        ]);
+        Room::create($validateData);
+
+        return redirect("/admin/room")->with('success', 'Data Ruang berhasil ditambahkan');
     }
 
     /**
@@ -36,7 +62,11 @@ class AdminRoomController extends Controller
      */
     public function show(Room $room)
     {
-        //
+        return view('admin.room.show', [
+            'title' => 'Detail Ruang',
+            'room' => $room,
+            'headers' => $this->headers
+        ]);
     }
 
     /**
@@ -44,7 +74,11 @@ class AdminRoomController extends Controller
      */
     public function edit(Room $room)
     {
-        //
+        return view('admin.room.edit', [
+            'title' => 'Sunting Ruang',
+            'room' => $room,
+            'headers' => $this->headers
+        ]);
     }
 
     /**
@@ -52,7 +86,16 @@ class AdminRoomController extends Controller
      */
     public function update(Request $request, Room $room)
     {
-        //
+        $validateData = $request->validate([
+            'type' => 'required|string',
+            'amount' => 'required|integer',
+        ], [], [
+            'type' => 'tipe',
+            'amount' => 'jumlah',
+        ]);
+        $room->update($validateData);
+
+        return redirect("/admin/room")->with('success', 'Data Ruang berhasil diperbarui');
     }
 
     /**
@@ -60,6 +103,8 @@ class AdminRoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        //
+        $room->delete();
+
+        return redirect("/admin/room")->with('success', 'Data Ruang berhasil dihapus');
     }
 }
