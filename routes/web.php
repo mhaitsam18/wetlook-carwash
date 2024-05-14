@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('member')->group(function () {
             Route::resource('vehicle', MemberVehicleController::class);
             Route::get('/my-profile', [MemberController::class, 'index'])->name('member.my-profile');
-            Route::get('/index', [MemberBookingController::class, 'index'])->name('member.index');
+            Route::get('/index', [MemberBookingController::class, 'create'])->name('member.index');
             Route::get('/booking/index', [MemberBookingController::class, 'index'])->name('member.booking.index');
 
             Route::resource('booking', MemberBookingController::class);
