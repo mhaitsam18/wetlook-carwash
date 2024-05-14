@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8" />
@@ -7,7 +7,7 @@
     <title>{{ $title ?? 'Wetlook Carwash' }} | Wetlook Carwash</title>
 
     <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <link rel="shortcut icon" href="/assets/img/wetlook-logo.ico" type="image/png">
+    <link rel="shortcut icon" href="/assets/img/wetlook-logo.png" type="image/png">
 
     <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
     <!-- Vendor CSS -->
@@ -291,6 +291,7 @@
             </div>
         </div> <!-- End Footer Bottom Area -->
     </footer> <!-- ...:::: End Footer Section:::... -->
+    {!! $modal ?? false !!}
 
 
     <!-- ::::::::::::::All JS Files here :::::::::::::: -->
@@ -376,7 +377,6 @@
         });
     </script>
     {!! $script ?? false !!}
-    {!! $modal ?? false !!}
 
 </body>
 

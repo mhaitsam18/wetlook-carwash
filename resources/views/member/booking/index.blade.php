@@ -41,7 +41,6 @@
             </div>
         </div>
     </div> <!-- ...:::: End Customer Login Section :::... -->
-    <x-slot:script>
-    </x-slot:script>
+    <x-slot:script></x-slot:script>
     <x-slot:modal></x-slot:modal>
 </x-layout>
