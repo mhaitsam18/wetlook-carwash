@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('type', ['additional', 'produk', 'jasa', 'makanan dan minuman'])->nullable();
             $table->text('description')->nullable();
             $table->double('price')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
