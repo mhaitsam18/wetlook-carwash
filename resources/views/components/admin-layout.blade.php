@@ -61,6 +61,19 @@
         <section class="section dashboard">
             <div class="row">
 
+                @if (session()->has('error') || (isset($errors) && $errors->any()))
+                    <x-alert type="error" :message="session()->get('error') ? session()->get('error') : 'Terjadi Kesalahan'" :colour="'danger'" />
+                @endif
+                @if (session()->has('success'))
+                    <x-alert type="success" :message="session()->get('success')" :colour="'success'" />
+                @endif
+                @if (session()->has('status'))
+                    <x-alert type="status" :message="session()->get('status')" :colour="'info'" />
+                @endif
+                @if (session()->has('warning'))
+                    <x-alert type="warning" :message="session()->get('warning')" :colour="'warning'" />
+                @endif
+
                 {{ $slot }}
 
             </div>
@@ -98,6 +111,66 @@
 
     <!-- Template Main JS File -->
     <script src="/assets-niceadmin/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const success = $('.flash-data').data('success');
+        if (success) {
+            //'Data ' +
+            Swal.fire({
+                title: 'Berhasil',
+                text: success,
+                icon: 'success'
+            });
+        }
+        const error = $('.flash-data').data('error');
+        if (error) {
+            //'Data ' +
+            Swal.fire({
+                title: 'Gagal',
+                text: error,
+                icon: 'error'
+            });
+        }
+        const warning = $('.flash-data').data('warning');
+        if (warning) {
+            //'Data ' +
+            Swal.fire({
+                title: 'Perhatian',
+                text: warning,
+                icon: 'warning'
+            });
+        }
+        $('.access-denied').on('click', function(e) {
+            e.preventDefault(); // Mencegah pengiriman formulir secara langsung
+
+            //'Data ' +
+            Swal.fire({
+                title: 'Akses ditolak',
+                text: 'Anda tidak memiliki otoritas untuk membuka fitur ini',
+                icon: 'warning'
+            });
+        });
+        $('.tombol-hapus').on('click', function(e) {
+            e.preventDefault(); // Mencegah pengiriman formulir secara langsung
+
+            const form = $(this).closest('form'); // Menemukan formulir terdekat
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Data ini akan dihapus!",
+                icon: 'warning',
+                confirmButtonText: 'Hapus',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Mengirimkan formulir setelah konfirmasi
+                }
+            });
+        });
+    </script>
     {!! $script ?? false !!}
 
 </body>
