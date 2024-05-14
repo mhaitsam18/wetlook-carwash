@@ -63,6 +63,7 @@ class AuthController extends Controller
             'email' => 'required|email:dns|unique:users',
             'username' => 'required|unique:users',
             'password' => 'required|confirmed',
+            // 'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3145728',
         ]);
         // if ($request->file('photo')) {
         //     $validatedData['photo'] = $request->file('photo')->store('user-photo');

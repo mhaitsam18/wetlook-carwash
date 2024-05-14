@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -22,7 +26,10 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.register', [
+            'title' => 'Registrasi Admin',
+            'role' => 'admin',
+        ]);
     }
 
     /**
@@ -30,7 +37,29 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email:dns|unique:users',
+            'username' => 'required|unique:users',
+            'password' => 'required|confirmed',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3145728',
+        ]);
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('user-photo');
+            $validateData['photo'] = $path;
+        }
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'username' => $validatedData['username'],
+            'password' => Hash::make($validatedData['password']),
+            'role' => 'admin',
+            'photo' => $validatedData['photo'],
+        ]);
+        Admin::create([
+            'user_id' => $user->id,
+        ]);
+        return redirect('/admin')->with('success', 'Data Admin berhasil ditambahkan');
     }
 
     /**
@@ -38,7 +67,10 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
-        //
+        return view('admin.my-profile', [
+            'title' => 'Profil Saya',
+            'profile' => $admin->user,
+        ]);
     }
 
     /**
@@ -46,7 +78,10 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        //
+        return view('admin.my-profile', [
+            'title' => 'Edit Profil',
+            'profile' => $admin->user,
+        ]);
     }
 
     /**
@@ -54,14 +89,53 @@ class AdminController extends Controller
      */
     public function update(Request $request, Admin $admin)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $admin->user->id,
+            'username' => 'required|string|unique:users,username,' . $admin->user->id,
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3145728',
+        ]);
+
+        // Assign custom attribute names:
+        $validator->customAttributes = [
+            'name' => 'Nama Lengkap',
+            'username' => 'Nama Pengguna',
+            'phone_number' => 'Nomor Ponsel',
+        ];
+
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->with('error', 'Terjadi kesalahan dalam pengisian formulir.')
+                ->withInput();
+        }
+        $user = User::find($admin->user_id);
+        if (!$user) {
+            return redirect()->back()->with('error', 'Pengguna tidak ditemukan.');
+        }
+
+        $user->name = $request->input('name');
+        $user->email = strtolower($request->input('email'));
+        $user->username = strtolower($request->input('username'));
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('user-photo');
+            $user->photo = $path;
+        }
+        $user->save();
+        return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Admin $admin)
+    public function destroy(Request $request, Admin $admin)
     {
-        //
+        User::destroy($admin->user_id);
+        $admin->delete();
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

@@ -29,7 +29,9 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.register', [
+            'title' => 'Registrasi',
+        ]);
     }
 
     /**
@@ -37,7 +39,31 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email:dns|unique:users',
+            'username' => 'required|unique:users',
+            'password' => 'required|confirmed',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3145728',
+        ]);
+        if ($request->file('photo')) {
+            $validatedData['photo'] = $request->file('photo')->store('user-photo');
+        };
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'username' => $validatedData['username'],
+            'password' => Hash::make($validatedData['password']),
+            'role' => 'member',
+            'photo' => $validatedData['photo'],
+        ]);
+        Member::create([
+            'user_id' => $user->id,
+            'phone_number' => $validatedData['phone_number'],
+            'address' => $validatedData['address'],
+        ]);
+
+        return redirect()->back()->with('success', 'Profil berhasil ditambahkan.');
     }
 
     /**
@@ -45,7 +71,11 @@ class MemberController extends Controller
      */
     public function show(Member $member)
     {
-        //
+        return view('member.my-profile', [
+            'title' => 'Profil Saya',
+            'profile' => $member->user,
+            'vehicles' => Vehicle::where('member_id', auth()->user()->member->id)->get(),
+        ]);
     }
 
     /**
@@ -53,7 +83,11 @@ class MemberController extends Controller
      */
     public function edit(Member $member)
     {
-        //
+        return view('member.my-profile', [
+            'title' => 'Sunting Profil',
+            'profile' => $member->user,
+            'vehicles' => Vehicle::where('member_id', auth()->user()->member->id)->get(),
+        ]);
     }
 
     /**
@@ -139,8 +173,13 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Member $member)
+    public function destroy(Request $request, Member $member)
     {
-        //
+        User::destroy($member->user_id);
+        $member->delete();
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

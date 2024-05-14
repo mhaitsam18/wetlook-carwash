@@ -91,7 +91,7 @@ class MemberBookingController extends Controller
     public function edit(Booking $booking)
     {
         return view('member.booking.edit', [
-            'title' => 'Booking',
+            'title' => 'Sunting Booking',
             'booking' => $booking,
             'packages' => Package::all(),
             'vehicles' => Vehicle::where('member_id', auth()->user()->member->id)->get()
