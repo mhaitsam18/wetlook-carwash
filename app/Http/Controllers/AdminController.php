@@ -69,6 +69,7 @@ class AdminController extends Controller
     {
         return view('admin.my-profile', [
             'title' => 'Profil Saya',
+            'section' => 'profile',
             'profile' => $admin->user,
         ]);
     }

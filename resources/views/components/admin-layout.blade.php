@@ -58,7 +58,7 @@
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section dashboard">
+        <section class="section {{ $section ?? 'dashboard' }}">
             <div class="row">
 
                 @if (session()->has('error') || (isset($errors) && $errors->any()))
