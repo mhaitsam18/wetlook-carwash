@@ -3,7 +3,7 @@
     <x-slot:style></x-slot:style>
     {{-- <x-slot:headers>
         @foreach ($headers as $header)
-            <li><a href="{{ $header['href'] }}">{{ $header['slot'] }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ $header['href'] }}">{{ $header['slot'] }}</a></li>
         @endforeach
     </x-slot:headers> --}}
     <!-- Left side columns -->
