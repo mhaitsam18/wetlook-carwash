@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminMemberController;
 use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\AdminOrderDetailController;
+use App\Http\Controllers\AdminOrderPaymentController;
 use App\Http\Controllers\AdminPackageController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminRoomController;
@@ -32,8 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware('member')->group(function () {
         Route::prefix('member')->group(function () {
             Route::resource('vehicle', MemberVehicleController::class);
-            Route::get('/my-profile', [MemberController::class, 'index'])->name('member.my-profile');
+            Route::get('/', [HomeController::class, 'index'])->name('member');
             Route::get('/index', [MemberBookingController::class, 'create'])->name('member.index');
+            Route::get('/my-profile', [MemberController::class, 'index'])->name('member.my-profile');
             Route::get('/booking/index', [MemberBookingController::class, 'index'])->name('member.booking.index');
 
             Route::resource('booking', MemberBookingController::class);
@@ -46,20 +48,22 @@ Route::middleware('auth')->group(function () {
     });
     Route::middleware('admin')->group(function () {
         Route::prefix('admin')->group(function () {
+            Route::get('/', [AdminController::class, 'index'])->name('admin');
             Route::get('/index', [AdminController::class, 'index'])->name('admin.index');
-            Route::get('/my-profile', [AdminController::class, 'index'])->name('admin.my-profile');
+            Route::get('/my-profile', [AdminController::class, 'show'])->name('admin.my-profile');
             Route::put('/my-profile/{admin}', [AdminController::class, 'update'])->name('admin.my-profile.update');
             Route::put('/change-password/{user}', [AdminController::class, 'updatePassword'])->name('admin.password.update');
 
             Route::resource('admin', AdminAdminController::class);
             Route::resource('member', AdminMemberController::class);
-            Route::resource('vehicle', AdminVehicleController::class);
+            Route::resource('member.vehicle', AdminVehicleController::class);
             Route::resource('package', AdminPackageController::class);
             Route::resource('product', AdminProductController::class);
             Route::resource('room', AdminRoomController::class);
             Route::resource('booking', AdminBookingController::class);
             Route::resource('order', AdminOrderController::class);
             Route::resource('order.detail', AdminOrderDetailController::class);
+            Route::resource('order.payment', AdminOrderPaymentController::class);
         });
     });
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
