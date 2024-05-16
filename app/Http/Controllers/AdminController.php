@@ -65,8 +65,11 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Admin $admin)
+    public function show(Admin $admin = null)
     {
+        if (!$admin) {
+            $admin = Admin::find(auth()->user()->admin->id);
+        }
         return view('admin.my-profile', [
             'title' => 'Profil Saya',
             'section' => 'profile',
@@ -77,8 +80,11 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Admin $admin)
+    public function edit(Admin $admin = null)
     {
+        if (!$admin) {
+            $admin = Admin::find(auth()->user()->admin->id);
+        }
         return view('admin.my-profile', [
             'title' => 'Edit Profil',
             'profile' => $admin->user,
@@ -125,6 +131,32 @@ class AdminController extends Controller
         }
         $user->save();
         return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+    }
+    public function updatePassword(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required',
+            'password' => 'required|string|confirmed|different:current_password',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->with('error', 'Terjadi kesalahan dalam pengisian formulir.')
+                ->with('form', 'change-password')
+                ->withInput();
+        }
+
+        if (!Hash::check($request->input('current_password'), $user->password)) {
+            return redirect()->back()
+                ->with('error', 'Password saat ini tidak cocok.')
+                ->withInput();
+        }
+
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password berhasil diperbarui.');
     }
 
     /**

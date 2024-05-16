@@ -1,5 +1,5 @@
 <div>
-    <div class="alert alert-danger mb-3 mx-auto flash-data" style="width: 50%;" role="alert"
+    <div class="alert alert-{{ $colour }} mb-3 mx-auto flash-data" role="alert"
         data-{{ $type }}="{{ $message }}">
         {{ $message }}
     </div>

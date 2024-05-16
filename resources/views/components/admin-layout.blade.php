@@ -47,6 +47,19 @@
 
     <main id="main" class="main">
 
+        @if (session()->has('error') || (isset($errors) && $errors->any()))
+            <x-alert type="error" :message="session()->get('error') ? session()->get('error') : 'Terjadi Kesalahan'" :colour="'danger'" />
+        @endif
+        @if (session()->has('success'))
+            <x-alert type="success" :message="session()->get('success')" :colour="'success'" />
+        @endif
+        @if (session()->has('status'))
+            <x-alert type="status" :message="session()->get('status')" :colour="'info'" />
+        @endif
+        @if (session()->has('warning'))
+            <x-alert type="warning" :message="session()->get('warning')" :colour="'warning'" />
+        @endif
+
         <div class="pagetitle">
             <h1>{{ $title ?? 'Wetlook Carwash' }}</h1>
             <nav>
@@ -60,19 +73,6 @@
 
         <section class="section {{ $section ?? 'dashboard' }}">
             <div class="row">
-
-                @if (session()->has('error') || (isset($errors) && $errors->any()))
-                    <x-alert type="error" :message="session()->get('error') ? session()->get('error') : 'Terjadi Kesalahan'" :colour="'danger'" />
-                @endif
-                @if (session()->has('success'))
-                    <x-alert type="success" :message="session()->get('success')" :colour="'success'" />
-                @endif
-                @if (session()->has('status'))
-                    <x-alert type="status" :message="session()->get('status')" :colour="'info'" />
-                @endif
-                @if (session()->has('warning'))
-                    <x-alert type="warning" :message="session()->get('warning')" :colour="'warning'" />
-                @endif
 
                 {{ $slot }}
 
@@ -111,6 +111,7 @@
 
     <!-- Template Main JS File -->
     <script src="/assets-niceadmin/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>

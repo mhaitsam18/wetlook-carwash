@@ -33,190 +33,155 @@
             <div class="card-body pt-3">
                 <!-- Bordered Tabs -->
                 <ul class="nav nav-tabs nav-tabs-bordered">
+                    @php
+                        $profileActive = '';
+                        $editActive = '';
+                        $passwordActive = '';
+
+                        if ($errors->any()) {
+                            if (
+                                $errors->has('name') ||
+                                $errors->has('username') ||
+                                $errors->has('email') ||
+                                $errors->has('photo')
+                            ) {
+                                $editActive = true;
+                            } elseif (
+                                $errors->has('password') ||
+                                $errors->has('current_password') ||
+                                $errors->has('password_confirmation')
+                            ) {
+                                $passwordActive = true;
+                            } else {
+                                $profileActive = true;
+                            }
+                        } else {
+                            $profileActive = true;
+                        }
+                    @endphp
 
                     <li class="nav-item">
-                        <button class="nav-link active" data-bs-toggle="tab"
-                            data-bs-target="#profile-overview">Overview</button>
+                        <button class="nav-link {{ $profileActive ? 'active' : '' }}" data-bs-toggle="tab"
+                            data-bs-target="#profile-overview">Ringkasan</button>
                     </li>
 
                     <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit
-                            Profile</button>
+                        <button class="nav-link {{ $editActive ? 'active' : '' }}" data-bs-toggle="tab"
+                            data-bs-target="#profile-edit">Sunting Profil</button>
                     </li>
 
                     <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab"
-                            data-bs-target="#profile-settings">Settings</button>
-                    </li>
-
-                    <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change
-                            Password</button>
+                        <button class="nav-link {{ $passwordActive ? 'active' : '' }}" data-bs-toggle="tab"
+                            data-bs-target="#profile-change-password">Ganti Kata Sandi</button>
                     </li>
 
                 </ul>
                 <div class="tab-content pt-2">
 
-                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                        <h5 class="card-title">About</h5>
-                        <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque
-                            temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae
-                            quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+                    <div class="tab-pane fade  {{ $profileActive ? 'show active' : '' }} profile-overview"
+                        id="profile-overview">
+                        <h5 class="card-title">Tentang</h5>
+                        <p class="small fst-italic">Tidak Tersedia</p>
 
-                        <h5 class="card-title">Profile Details</h5>
+                        <h5 class="card-title">Detail Profil</h5>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                            <div class="col-lg-9 col-md-8">Kevin Anderson</div>
+                            <div class="col-lg-3 col-md-4 label ">Nama Lengkap</div>
+                            <div class="col-lg-9 col-md-8">{{ auth()->user()->name }}</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Company</div>
-                            <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
+                            <div class="col-lg-3 col-md-4 label">Perusahaan</div>
+                            <div class="col-lg-9 col-md-8">Wetlook Carwash</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Job</div>
-                            <div class="col-lg-9 col-md-8">Web Designer</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Country</div>
-                            <div class="col-lg-9 col-md-8">USA</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Address</div>
-                            <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Phone</div>
-                            <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                            <div class="col-lg-3 col-md-4 label">Username</div>
+                            <div class="col-lg-9 col-md-8">{{ auth()->user()->username }}</div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-3 col-md-4 label">Email</div>
-                            <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+                            <div class="col-lg-9 col-md-8">{{ auth()->user()->email }}</div>
                         </div>
 
                     </div>
 
-                    <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                    <div class="tab-pane fade {{ $editActive ? 'show active' : '' }} profile-edit pt-3"
+                        id="profile-edit">
 
                         <!-- Profile Edit Form -->
-                        <form>
+                        <form action="/admin/my-profile/{{ auth()->user()->id }}" method="post"
+                            enctype="multipart/form-data">
+                            @method('put')
+                            @csrf
+                            <input type="hidden" name="id" value="{{ old('id', $profile->id) }}">
                             <div class="row mb-3">
-                                <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                                <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Foto Profil</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <img src="/assets-niceadmin/img/profile-img.jpg" alt="Profile">
+                                    <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Profile"
+                                        style="max-width: 200px;" class="img-preview">
+                                    @error('photo')
+                                        <div class="text-danger fs-6">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     <div class="pt-2">
-                                        <a href="#" class="btn btn-primary btn-sm"
-                                            title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm"
-                                            title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                                        <label for="photo" class="btn btn-primary btn-sm"
+                                            title="Upload new profile image">
+                                            <i class="bi bi-upload"></i>
+                                        </label>
+                                        <input type="file" id="photo" name="photo"
+                                            class="form-control @error('photo') is-invalid @enderror"
+                                            style="display: none;">
+                                        <button type="button" id="removeImage" class="btn btn-danger btn-sm"
+                                            title="Remove my profile image">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                                <label for="name" class="col-md-4 col-lg-3 col-form-label">Nama Lengkap</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <input name="fullName" type="text" class="form-control" id="fullName"
-                                        value="Kevin Anderson">
+
+                                    <input name="name" type="text"
+                                        class="form-control @error('name') is-invalid @enderror" id="name"
+                                        value="{{ old('name', $profile->name) }}">
+                                    @error('name')
+                                        <div class="text-danger fs-6">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
-
                             <div class="row mb-3">
-                                <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                                <label for="username" class="col-md-4 col-lg-3 col-form-label">Username</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                                    <input name="username" type="text"
+                                        class="form-control @error('username') is-invalid @enderror" id="username"
+                                        value="{{ old('username', $profile->username) }}">
+                                    @error('username')
+                                        <div class="text-danger fs-6">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
-
                             <div class="row mb-3">
-                                <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
+                                <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <input name="company" type="text" class="form-control" id="company"
-                                        value="Lueilwitz, Wisoky and Leuschke">
+                                    <input name="email" type="email"
+                                        class="form-control @error('email') is-invalid @enderror" id="email"
+                                        value="{{ old('email', $profile->email) }}">
+                                    @error('email')
+                                        <div class="text-danger fs-6">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
-
-                            <div class="row mb-3">
-                                <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input name="job" type="text" class="form-control" id="Job"
-                                        value="Web Designer">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input name="country" type="text" class="form-control" id="Country"
-                                        value="USA">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input name="address" type="text" class="form-control" id="Address"
-                                        value="A108 Adam Street, New York, NY 535022">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input name="phone" type="text" class="form-control" id="Phone"
-                                        value="(436) 486-3538 x29071">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input name="email" type="email" class="form-control" id="Email"
-                                        value="k.anderson@example.com">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input name="twitter" type="text" class="form-control" id="Twitter"
-                                        value="https://twitter.com/#">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook
-                                    Profile</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input name="facebook" type="text" class="form-control" id="Facebook"
-                                        value="https://facebook.com/#">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram
-                                    Profile</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input name="instagram" type="text" class="form-control" id="Instagram"
-                                        value="https://instagram.com/#">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin
-                                    Profile</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <input name="linkedin" type="text" class="form-control" id="Linkedin"
-                                        value="https://linkedin.com/#">
-                                </div>
-                            </div>
-
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
@@ -224,83 +189,56 @@
 
                     </div>
 
-                    <div class="tab-pane fade pt-3" id="profile-settings">
 
-                        <!-- Settings Form -->
-                        <form>
-
-                            <div class="row mb-3">
-                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email
-                                    Notifications</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                                        <label class="form-check-label" for="changesMade">
-                                            Changes made to your account
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                                        <label class="form-check-label" for="newProducts">
-                                            Information on new products and services
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="proOffers">
-                                        <label class="form-check-label" for="proOffers">
-                                            Marketing and promo offers
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="securityNotify" checked
-                                            disabled>
-                                        <label class="form-check-label" for="securityNotify">
-                                            Security alerts
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </div>
-                        </form><!-- End settings Form -->
-
-                    </div>
-
-                    <div class="tab-pane fade pt-3" id="profile-change-password">
+                    <div class="tab-pane fade {{ $passwordActive ? 'show active' : '' }} pt-3"
+                        id="profile-change-password">
                         <!-- Change Password Form -->
-                        <form>
-
+                        <form action="/admin/change-password/{{ $profile->id }}" method="post"
+                            enctype="multipart/form-data">
+                            @method('put')
+                            @csrf
+                            <input type="hidden" name="id" value="{{ old('id', $profile->id) }}">
                             <div class="row mb-3">
-                                <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current
-                                    Password</label>
+                                <label for="current_password" class="col-md-4 col-lg-3 col-form-label">Kata Sandi Saat
+                                    Ini</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <input name="password" type="password" class="form-control"
-                                        id="currentPassword">
+                                    <input type="password" class="form-control" name="current_password"
+                                        id="current_password">
+                                    @error('current_password')
+                                        <div class="text-danger fs-6">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
-
                             <div class="row mb-3">
-                                <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                <label for="password" class="col-md-4 col-lg-3 col-form-label">Kata Sandi Baru</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <input name="newpassword" type="password" class="form-control" id="newPassword">
+                                    <input type="password" class="form-control" name="password" id="password">
+                                    @error('password')
+                                        <div class="text-danger fs-6">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
-
                             <div class="row mb-3">
-                                <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New
-                                    Password</label>
+                                <label for="password_confirmation" class="col-md-4 col-lg-3 col-form-label">Konfirmasi
+                                    Kata Sandi</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <input name="renewpassword" type="password" class="form-control"
-                                        id="renewPassword">
+                                    <input type="password" class="form-control" name="password_confirmation"
+                                        id="password_confirmation">
+                                    @error('password_confirmation')
+                                        <div class="text-danger fs-6">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
-
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Change Password</button>
                             </div>
-                        </form><!-- End Change Password Form -->
+                        </form>
 
                     </div>
 
@@ -310,6 +248,27 @@
         </div>
 
     </div>
-    <x-slot:script></x-slot:script>
+    <x-slot:script>
+        <script>
+            $(document).ready(function() {
+                $('#photo').on('change', function() {
+                    const file = $(this).prop('files')[0];
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('.img-preview').attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+            });
+            $(document).ready(function() {
+                $('#removeImage').on('click', function() {
+                    $('.img-preview').attr('src', '/assets/img/not-found.jpg');
+                    $('#photo').val('');
+                });
+            });
+        </script>
+    </x-slot:script>
     <x-slot:modal></x-slot:modal>
 </x-admin-layout>

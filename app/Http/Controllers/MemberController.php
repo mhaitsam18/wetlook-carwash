@@ -69,8 +69,11 @@ class MemberController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Member $member)
+    public function show(Member $member = null)
     {
+        if (!$member) {
+            $member = Member::find(auth()->user()->member->id);
+        }
         return view('member.my-profile', [
             'title' => 'Profil Saya',
             'profile' => $member->user,
@@ -81,8 +84,11 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Member $member)
+    public function edit(Member $member = null)
     {
+        if (!$member) {
+            $member = Member::find(auth()->user()->member->id);
+        }
         return view('member.my-profile', [
             'title' => 'Sunting Profil',
             'profile' => $member->user,
