@@ -28,62 +28,56 @@
                     <div class="card-body pb-0">
                         <h5 class="card-title">Tabel {{ $title }}</h5>
 
-                        <table class="table table-borderless">
+                        <a href="/admin/member/create" class="btn btn-sm btn-primary d-inline m-1"><i
+                                class="bi bi-plus"></i>
+                            Tambah</a>
+                        <table class="table table-hover table-responsive datatable" id="example1">
                             <thead>
                                 <tr>
-                                    <th scope="col">Preview</th>
-                                    <th scope="col">Product</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Sold</th>
-                                    <th scope="col">Revenue</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Foto</th>
+                                    <th scope="col">Nama Lengkap</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Nomor Telepon</th>
+                                    <th scope="col">Alamat</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row"><a href="#"><img src="/assets-niceadmin/img/product-1.jpg"
-                                                alt=""></a></th>
-                                    <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa
-                                            voluptas nulla</a></td>
-                                    <td>$64</td>
-                                    <td class="fw-bold">124</td>
-                                    <td>$5,828</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><a href="#"><img src="/assets-niceadmin/img/product-2.jpg"
-                                                alt=""></a></th>
-                                    <td><a href="#" class="text-primary fw-bold">Exercitationem
-                                            similique doloremque</a></td>
-                                    <td>$46</td>
-                                    <td class="fw-bold">98</td>
-                                    <td>$4,508</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><a href="#"><img src="/assets-niceadmin/img/product-3.jpg"
-                                                alt=""></a></th>
-                                    <td><a href="#" class="text-primary fw-bold">Doloribus nisi
-                                            exercitationem</a></td>
-                                    <td>$59</td>
-                                    <td class="fw-bold">74</td>
-                                    <td>$4,366</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><a href="#"><img src="/assets-niceadmin/img/product-4.jpg"
-                                                alt=""></a></th>
-                                    <td><a href="#" class="text-primary fw-bold">Officiis quaerat
-                                            sint rerum error</a></td>
-                                    <td>$32</td>
-                                    <td class="fw-bold">63</td>
-                                    <td>$2,016</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><a href="#"><img src="/assets-niceadmin/img/product-5.jpg"
-                                                alt=""></a></th>
-                                    <td><a href="#" class="text-primary fw-bold">Sit unde debitis
-                                            delectus repellendus</a></td>
-                                    <td>$79</td>
-                                    <td class="fw-bold">41</td>
-                                    <td>$3,239</td>
-                                </tr>
+                                @foreach ($members as $member)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td><a href="/admin/member/{{ $member->user->id }}"><img
+                                                    src="{{ asset('storage/' . $member->user->photo) }}"
+                                                    alt=""></a>
+                                        </td>
+                                        <td><a href="/admin/member/{{ $member->id }}"
+                                                class="text-primary fw-bold">{{ $member->user->name }}</a></td>
+                                        <td>{{ $member->user->username }}</td>
+                                        <td>{{ $member->user->email }}</td>
+                                        <td>{{ $member->phone_number }}</td>
+                                        <td>{{ $member->address }}</td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="/admin/member/{{ $member->id }}/vehicle"
+                                                    class="btn btn-sm btn-info d-inline m-1"><i
+                                                        class="bi bi-car-front"></i> Kendaraan</a>
+                                                <a href="/admin/member/{{ $member->id }}/edit"
+                                                    class="btn btn-sm btn-success d-inline m-1"><i
+                                                        class="bi bi-pencil-square"></i> Sunting</a>
+                                                <form action="/admin/member/{{ $member->id }}" method="post">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $member->id }}">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-danger d-inline m-1 tombol-hapus"><i
+                                                            class="bi bi-trash"></i> Hapus</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
 

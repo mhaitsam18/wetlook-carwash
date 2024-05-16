@@ -17,7 +17,8 @@ return new class extends Migration
                 ->constrained('orders')
                 ->onUpdate('cascade')
                 ->nullOnDelete();
-            $table->string('evidence');
+            $table->string('evidence')->nullable();
+            $table->double('amount')->nullable();
             $table->timestamps();
         });
     }

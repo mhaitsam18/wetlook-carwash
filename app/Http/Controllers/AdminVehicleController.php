@@ -33,7 +33,7 @@ class AdminVehicleController extends Controller
     {
         return view('admin.member.vehicle.index', [
             'title' => 'Data Kendaraan',
-            'vehicles' => $member->vehicles()
+            'member' => $member,
         ]);
     }
 

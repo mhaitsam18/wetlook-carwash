@@ -28,63 +28,71 @@
                     <div class="card-body pb-0">
                         <h5 class="card-title">Tabel {{ $title }}</h5>
 
-                        <table class="table table-borderless">
+                        <a href="/admin/order/{{ $order->id }}/detail/create"
+                            class="btn btn-sm btn-primary d-inline m-1"><i class="bi bi-plus"></i>
+                            Tambah</a>
+
+                        <table class="table table-hover table-responsive datatable" id="example1">
                             <thead>
                                 <tr>
-                                    <th scope="col">Preview</th>
-                                    <th scope="col">Product</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Sold</th>
-                                    <th scope="col">Revenue</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nama Produk / Jasa</th>
+                                    <th scope="col">item / barang</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Harga satuan</th>
+                                    <th scope="col">Sub Total</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row"><a href="#"><img src="/assets-niceadmin/img/product-1.jpg"
-                                                alt=""></a></th>
-                                    <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa
-                                            voluptas nulla</a></td>
-                                    <td>$64</td>
-                                    <td class="fw-bold">124</td>
-                                    <td>$5,828</td>
+                                    <th scope="row">1</th>
+                                    <td>{{ $order->booking->package->name }}</td>
+                                    <td>{!! $order->booking->package->description !!}</td>
+                                    <td>1</td>
+                                    <td>Rp.{{ number_format($order->booking->package->price, 2, ',', '.') }}</td>
+                                    <td>Rp.{{ number_format($order->booking->package->price, 2, ',', '.') }}</td>
+                                    <td></td>
                                 </tr>
-                                <tr>
-                                    <th scope="row"><a href="#"><img src="/assets-niceadmin/img/product-2.jpg"
-                                                alt=""></a></th>
-                                    <td><a href="#" class="text-primary fw-bold">Exercitationem
-                                            similique doloremque</a></td>
-                                    <td>$46</td>
-                                    <td class="fw-bold">98</td>
-                                    <td>$4,508</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><a href="#"><img src="/assets-niceadmin/img/product-3.jpg"
-                                                alt=""></a></th>
-                                    <td><a href="#" class="text-primary fw-bold">Doloribus nisi
-                                            exercitationem</a></td>
-                                    <td>$59</td>
-                                    <td class="fw-bold">74</td>
-                                    <td>$4,366</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><a href="#"><img src="/assets-niceadmin/img/product-4.jpg"
-                                                alt=""></a></th>
-                                    <td><a href="#" class="text-primary fw-bold">Officiis quaerat
-                                            sint rerum error</a></td>
-                                    <td>$32</td>
-                                    <td class="fw-bold">63</td>
-                                    <td>$2,016</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><a href="#"><img src="/assets-niceadmin/img/product-5.jpg"
-                                                alt=""></a></th>
-                                    <td><a href="#" class="text-primary fw-bold">Sit unde debitis
-                                            delectus repellendus</a></td>
-                                    <td>$79</td>
-                                    <td class="fw-bold">41</td>
-                                    <td>$3,239</td>
-                                </tr>
+                                @foreach ($order->details as $detail)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration + 1 }}</th>
+                                        <td>
+                                            <a href="/admin/product/{{ $detail->product_id }}"
+                                                class="text-primary fw-bold">{{ $detail->product->name }}</a>
+                                        </td>
+                                        <td><a href="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}"
+                                                class="fw-bold">{{ $detail->item }}</a></td>
+                                        <td>{{ $detail->jumlah }}</td>
+                                        <td>Rp.{{ number_format($detail->price, 2, ',', '.') }}</td>
+                                        <td>Rp.{{ number_format($detail->sub_total_price, 2, ',', '.') }}</td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="/admin/detail/{{ $detail->id }}/edit"
+                                                    class="btn btn-sm btn-success d-inline m-1"><i
+                                                        class="bi bi-pencil-square"></i>
+                                                    Sunting</a>
+                                                <form action="/admin/detail/{{ $detail->id }}" method="post">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $detail->id }}">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-danger d-inline m-1 tombol-hapus"><i
+                                                            class="bi bi-trash"></i> Hapus</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5">Total</th>
+                                    <th>Rp.{{ number_format($order->details->sum('sub_total_price') + $order->booking->package->price, 2, ',', '.') }}
+                                    </th>
+                                </tr>
+
+                            </tfoot>
                         </table>
 
                     </div>
