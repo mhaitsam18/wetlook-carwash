@@ -46,7 +46,7 @@
                                 @foreach ($admins as $admin)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td><a href="/admin/admin/{{ $admin->user->id }}"><img
+                                        <td><a href="/admin/admin/{{ $admin->id }}"><img
                                                     src="{{ asset('storage/' . $admin->user->photo) }}"
                                                     alt=""></a>
                                         </td>
