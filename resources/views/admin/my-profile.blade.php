@@ -111,7 +111,7 @@
                         id="profile-edit">
 
                         <!-- Profile Edit Form -->
-                        <form action="/admin/my-profile/{{ auth()->user()->id }}" method="post"
+                        <form action="/admin/my-profile/{{ $profile->id }}" method="post"
                             enctype="multipart/form-data">
                             @method('put')
                             @csrf
@@ -119,7 +119,7 @@
                             <div class="row mb-3">
                                 <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Foto Profil</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <img src="{{ asset('storage/' . auth()->user()->photo) }}" alt="Profile"
+                                    <img src="{{ asset('storage/' . $profile->photo) }}" alt="Profile"
                                         style="max-width: 200px;" class="img-preview">
                                     @error('photo')
                                         <div class="text-danger fs-6">
@@ -145,7 +145,6 @@
                             <div class="row mb-3">
                                 <label for="name" class="col-md-4 col-lg-3 col-form-label">Nama Lengkap</label>
                                 <div class="col-md-8 col-lg-9">
-
                                     <input name="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" id="name"
                                         value="{{ old('name', $profile->name) }}">
@@ -183,7 +182,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form><!-- End Profile Edit Form -->
 
@@ -236,7 +235,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Change Password</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
 

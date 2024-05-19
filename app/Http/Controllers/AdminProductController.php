@@ -47,7 +47,7 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'package_id' => 'nullable',
             'name' => 'required',
             'type' => 'required|string',
@@ -64,9 +64,9 @@ class AdminProductController extends Controller
         ]);
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('product-image');
-            $validateData['image'] = $path;
+            $validatedData['image'] = $path;
         }
-        Product::create($validateData);
+        Product::create($validatedData);
 
         return redirect("/admin/product")->with('success', 'Data Produk berhasil ditambahkan');
     }
@@ -101,7 +101,7 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'package_id' => 'nullable',
             'name' => 'required',
             'type' => 'required|string',
@@ -118,9 +118,9 @@ class AdminProductController extends Controller
         ]);
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('product-image');
-            $validateData['image'] = $path;
+            $validatedData['image'] = $path;
         }
-        $product->update($validateData);
+        $product->update($validatedData);
 
         return redirect("/admin/product")->with('success', 'Data Produk berhasil diperbarui');
     }

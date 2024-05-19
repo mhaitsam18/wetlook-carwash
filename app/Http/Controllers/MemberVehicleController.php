@@ -43,7 +43,7 @@ class MemberVehicleController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'member_id' => 'nullable',
             'plate_number' => 'required|string',
             'type' => 'required',
@@ -60,14 +60,14 @@ class MemberVehicleController extends Controller
             'image' => 'gambar',
         ]);
         if (!$request->filled('member_id')) {
-            $validateData['member_id'] = auth()->user()->member->id;
+            $validatedData['member_id'] = auth()->user()->member->id;
         }
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('vehicle-image');
-            $validateData['image'] = $path;
+            $validatedData['image'] = $path;
         }
 
-        Vehicle::create($validateData);
+        Vehicle::create($validatedData);
         return redirect('/member/vehicle')->with('success', 'Data Kendaraan berhasil ditambahkan');
     }
 
@@ -100,7 +100,7 @@ class MemberVehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'member_id' => 'nullable',
             'plate_number' => 'required|string',
             'type' => 'required',
@@ -118,11 +118,11 @@ class MemberVehicleController extends Controller
         ]);
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('vehicle-image');
-            $validateData['image'] = $path;
+            $validatedData['image'] = $path;
         } else {
-            $validateData['image'] = $vehicle->image;
+            $validatedData['image'] = $vehicle->image;
         }
-        $vehicle->update($validateData);
+        $vehicle->update($validatedData);
         return redirect('/member/vehicle')->with('success', 'Data kendaraan berhasil diubah');
     }
 

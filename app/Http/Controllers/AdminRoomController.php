@@ -45,14 +45,14 @@ class AdminRoomController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'type' => 'required|string',
             'amount' => 'required|integer',
         ], [], [
             'type' => 'tipe',
             'amount' => 'jumlah',
         ]);
-        Room::create($validateData);
+        Room::create($validatedData);
 
         return redirect("/admin/room")->with('success', 'Data Ruang berhasil ditambahkan');
     }
@@ -86,14 +86,14 @@ class AdminRoomController extends Controller
      */
     public function update(Request $request, Room $room)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'type' => 'required|string',
             'amount' => 'required|integer',
         ], [], [
             'type' => 'tipe',
             'amount' => 'jumlah',
         ]);
-        $room->update($validateData);
+        $room->update($validatedData);
 
         return redirect("/admin/room")->with('success', 'Data Ruang berhasil diperbarui');
     }

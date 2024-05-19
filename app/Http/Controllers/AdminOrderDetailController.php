@@ -72,7 +72,7 @@ class AdminOrderDetailController extends Controller
      */
     public function store(Request $request, Order $order)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'order_id' => 'nullable',
             'product_id' => 'nullable',
             'item' => 'nullable',
@@ -151,7 +151,7 @@ class AdminOrderDetailController extends Controller
      */
     public function update(Request $request, Order $order, Detail $detail)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'product_id' => 'nullable',
             'item' => 'nullable',
             'quantity' => 'required',

@@ -58,7 +58,7 @@ class AdminBookingController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'package_id' => 'required',
             'vehicle_id' => 'nullable',
             'member_id' => 'nullable',
@@ -71,7 +71,7 @@ class AdminBookingController extends Controller
             'time' => 'waktu',
         ]);
 
-        $booking = Booking::create($validateData);
+        $booking = Booking::create($validatedData);
         Order::create(
             [
                 'booking_id' => $booking->id,
@@ -112,7 +112,7 @@ class AdminBookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'package_id' => 'required',
             'vehicle_id' => 'nullable',
             'member_id' => 'nullable',
@@ -126,7 +126,7 @@ class AdminBookingController extends Controller
         ]);
 
 
-        $booking->update($validateData);
+        $booking->update($validatedData);
 
         $totalPrice = $booking->order->details->isNotEmpty() ? $booking->order->details->sum('sub_total_price') + $booking->package->price : $booking->package->price;
 

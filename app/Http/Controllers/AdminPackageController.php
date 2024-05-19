@@ -45,7 +45,7 @@ class AdminPackageController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'room_id' => 'nullable',
             'name' => 'required',
             'description' => 'nullable',
@@ -58,7 +58,7 @@ class AdminPackageController extends Controller
             'duration' => 'durasi',
             'price' => 'harga',
         ]);
-        Package::create($validateData);
+        Package::create($validatedData);
 
         return redirect("/admin/package")->with('success', 'Data Paket berhasil ditambahkan');
     }
@@ -93,7 +93,7 @@ class AdminPackageController extends Controller
      */
     public function update(Request $request, Package $package)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'room_id' => 'nullable',
             'name' => 'required',
             'description' => 'nullable',
@@ -106,7 +106,7 @@ class AdminPackageController extends Controller
             'duration' => 'durasi',
             'price' => 'harga',
         ]);
-        $package->update($validateData);
+        $package->update($validatedData);
 
         return redirect("/admin/package")->with('success', 'Data Paket berhasil diperbarui');
     }

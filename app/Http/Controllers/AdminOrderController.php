@@ -50,7 +50,7 @@ class AdminOrderController extends Controller
     public function store(Request $request)
     {
         if (!$request->booking_id) {
-            $validateData = $request->validate([
+            $validatedData = $request->validate([
                 'package_id' => 'required',
                 'vehicle_id' => 'nullable',
                 'member_id' => 'nullable',
@@ -61,7 +61,7 @@ class AdminOrderController extends Controller
                 'date' => 'tanggal',
                 'time' => 'waktu',
             ]);
-            $booking = Booking::create($validateData);
+            $booking = Booking::create($validatedData);
         } else {
             $booking = Booking::find($request->booking_id);
         }
@@ -104,11 +104,11 @@ class AdminOrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'status' => 'required',
         ]);
 
-        $order->update($validateData);
+        $order->update($validatedData);
         return redirect('/admin/order')->with('success', 'Pemesanan diperbarui');
     }
 

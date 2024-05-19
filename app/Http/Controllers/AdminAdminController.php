@@ -55,7 +55,7 @@ class AdminAdminController extends Controller
         ]);
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('user-photo');
-            $validateData['photo'] = $path;
+            $validatedData['photo'] = $path;
         }
         $user = User::create([
             'name' => $validatedData['name'],

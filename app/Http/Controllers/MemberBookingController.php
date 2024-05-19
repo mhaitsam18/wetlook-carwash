@@ -50,7 +50,7 @@ class MemberBookingController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'package_id' => 'required',
             'vehicle_id' => 'required',
             'member_id' => 'nullable',
@@ -63,7 +63,7 @@ class MemberBookingController extends Controller
             'time' => 'waktu',
         ]);
 
-        $booking = Booking::create($validateData);
+        $booking = Booking::create($validatedData);
         Order::create(
             [
                 'booking_id' => $booking->id,
@@ -103,7 +103,7 @@ class MemberBookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        $validateData = $request->validate([
+        $validatedData = $request->validate([
             'package_id' => 'required',
             'vehicle_id' => 'required',
             'member_id' => 'nullable',
@@ -116,7 +116,7 @@ class MemberBookingController extends Controller
             'time' => 'waktu',
         ]);
 
-        $booking->update($validateData);
+        $booking->update($validatedData);
         return redirect('/member/booking')->with('success', 'Booking diperbarui');
     }
 
