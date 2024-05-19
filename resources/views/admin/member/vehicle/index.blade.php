@@ -53,8 +53,8 @@
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td><a
                                                 href="/admin/member/{{ $vehicle->member_id }}/vehicle/{{ $vehicle->id }}"><img
-                                                    src="{{ asset('storage/' . $vehicle->image) }}" alt=""></a>
-                                        </td>
+                                                    src="{{ $vehicle->image ? asset('storage/' . $vehicle->image) : '/assets/img/not-found.jpg' }}"
+                                                    alt=""></a></td>
                                         <td><a href="/admin/member/{{ $vehicle->member_id }}/vehicle/{{ $vehicle->id }}"
                                                 class="text-primary fw-bold">{{ $vehicle->plate_number }}</a></td>
                                         <td>{{ $vehicle->type == 'car' ? 'Mobil' : 'Motor' }}</td>

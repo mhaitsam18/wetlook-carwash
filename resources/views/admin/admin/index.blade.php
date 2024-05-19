@@ -47,7 +47,7 @@
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td><a href="/admin/admin/{{ $admin->id }}"><img
-                                                    src="{{ asset('storage/' . $admin->user->photo) }}"
+                                                    src="{{ $admin->user->photo ? asset('storage/' . $admin->user->photo) : '/assets/img/not-found.jpg' }}"
                                                     alt=""></a>
                                         </td>
                                         <td><a href="/admin/admin/{{ $admin->id }}"

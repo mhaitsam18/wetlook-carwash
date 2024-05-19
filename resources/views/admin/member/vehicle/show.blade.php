@@ -28,8 +28,8 @@
                     <div class="card-body pb-0">
                         <div class="row">
                             <div class="col-lg-2">
-                                <img src="{{ asset('storage/' . $vehicle->image) }}" alt="Profile"
-                                    style="max-width: 200px;" class="my-3">
+                                <img src="{{ $vehicle->image ? asset('storage/' . $vehicle->image) : '/assets/img/not-found.jpg' }}"
+                                    alt="Profile" style="max-width: 200px;" class="my-3">
                             </div>
                             <div class="col-lg-6">
                                 <h5 class="card-title">Detail {{ $title }}

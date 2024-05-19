@@ -35,8 +35,8 @@
                             <div class="row mb-3">
                                 <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Gambar</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <img src="{{ asset('storage/' . $vehicle->image) }}" alt="Profile"
-                                        style="max-width: 200px;" class="img-preview">
+                                    <img src="{{ $vehicle->image ? asset('storage/' . $vehicle->image) : '/assets/img/not-found.jpg' }}"
+                                        alt="Profile" style="max-width: 200px;" class="img-preview">
                                     @error('image')
                                         <div class="text-danger fs-6">
                                             {{ $message }}

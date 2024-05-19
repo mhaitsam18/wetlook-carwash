@@ -34,8 +34,8 @@
                             <div class="row mb-3">
                                 <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Foto Profil</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <img src="{{ asset('storage/' . $member->user->photo) }}" alt="Profile"
-                                        style="max-width: 200px;" class="img-preview">
+                                    <img src="{{ $member->user->photo ? asset('storage/' . $member->user->photo) : '/assets/img/not-found.jpg' }}"
+                                        alt="Profile" style="max-width: 200px;" class="img-preview">
                                     @error('photo')
                                         <div class="text-danger fs-6">
                                             {{ $message }}
