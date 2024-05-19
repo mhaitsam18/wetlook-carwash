@@ -59,7 +59,7 @@
                             <div class="row mb-3">
                                 <label for="plate_number" class="col-md-4 col-lg-3 col-form-label">Plat Nomor</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <input plate_number="plate_number" type="text"
+                                    <input name="plate_number" type="text"
                                         class="form-control @error('plate_number') is-invalid @enderror"
                                         id="plate_number" value="{{ old('plate_number') }}">
                                     @error('plate_number')
