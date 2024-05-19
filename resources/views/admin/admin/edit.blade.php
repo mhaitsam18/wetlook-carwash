@@ -123,7 +123,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="text-center">
+                            <div class="text-center mb-3">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form><!-- End Profile Edit Form -->
