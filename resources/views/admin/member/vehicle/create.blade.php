@@ -33,7 +33,7 @@
                             <div class="row mb-3">
                                 <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Gambar</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <img src="/assets/img/not-found.jpg" alt="Profile" style="max-width: 200px;"
+                                    <img src="/assets/img/not-found.jpg" alt="Gambar" style="max-width: 200px;"
                                         class="img-preview">
                                     @error('image')
                                         <div class="text-danger fs-6">
