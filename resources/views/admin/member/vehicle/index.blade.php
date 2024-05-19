@@ -29,9 +29,10 @@
                         <h5 class="card-title">Tabel {{ $title }}</h5>
 
                         <a href="/admin/member/{{ $member->id }}/vehicle/create"
-                            class="btn btn-sm btn-primary d-inline m-1"><i class="bi bi-plus"></i>
+                            class="btn btn-sm btn-primary d-inline m-1 mb-2"><i class="bi bi-plus"></i>
                             Tambah</a>
-                        <a href="/admin/member" class="btn btn-sm btn-secondary d-inline m-1"><i class="bi bi-list"></i>
+                        <a href="/admin/member" class="btn btn-sm btn-secondary d-inline m-1 mb-2"><i
+                                class="bi bi-list"></i>
                             List Member</a>
                         <table class="table table-hover table-responsive datatable" id="example1">
                             <thead>

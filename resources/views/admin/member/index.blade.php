@@ -28,7 +28,7 @@
                     <div class="card-body pb-0">
                         <h5 class="card-title">Tabel {{ $title }}</h5>
 
-                        <a href="/admin/member/create" class="btn btn-sm btn-primary d-inline m-1"><i
+                        <a href="/admin/member/create" class="btn btn-sm btn-primary d-inline m-1 mb-2"><i
                                 class="bi bi-plus"></i>
                             Tambah</a>
                         <table class="table table-hover table-responsive datatable" id="example1">

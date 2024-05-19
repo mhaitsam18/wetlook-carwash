@@ -26,7 +26,24 @@
                     </div> --}}
 
                     <div class="card-body pb-0">
-                        <h5 class="card-title">Detail {{ $title }}</h5>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h5 class="card-title">Detail {{ $title }}
+                                    <a href="javascript:window.history.back();"
+                                        class="btn btn-sm btn-secondary float-end">Kembali</a>
+                                </h5>
+                                <div class="mb-3">
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label ">Tipe</div>
+                                        <div class="col-lg-9 col-md-8">{{ $room->type }}</div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label">Jumlah slot</div>
+                                        <div class="col-lg-9 col-md-8">{{ $room->amount }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 

@@ -27,6 +27,38 @@
 
                     <div class="card-body pb-0">
                         <h5 class="card-title">Form {{ $title }}</h5>
+                        <form action="/admin/room" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row mb-3">
+                                <label for="type" class="col-md-4 col-lg-3 col-form-label">Tipe</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="type" type="text"
+                                        class="form-control @error('type') is-invalid @enderror" id="type"
+                                        value="{{ old('type') }}">
+                                    @error('type')
+                                        <div class="text-danger fs-6">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="amount" class="col-md-4 col-lg-3 col-form-label">Jumlah Slot</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="amount" type="number"
+                                        class="form-control @error('amount') is-invalid @enderror" id="amount"
+                                        value="{{ old('amount') }}">
+                                    @error('amount')
+                                        <div class="text-danger fs-6">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="text-center mb-3">
+                                <a href="javascript:window.history.back();" class="btn btn-secondary">Kembali</a>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
 
                     </div>
 
