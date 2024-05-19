@@ -26,7 +26,40 @@
                     </div> --}}
 
                     <div class="card-body pb-0">
-                        <h5 class="card-title">Detail {{ $title }}</h5>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img src="{{ asset('storage/' . $vehicle->image) }}" alt="Profile"
+                                    style="max-width: 200px;" class="my-3">
+                            </div>
+                            <div class="col-lg-6">
+                                <h5 class="card-title">Detail {{ $title }}
+                                    <a href="javascript:window.history.back();"
+                                        class="btn btn-sm btn-secondary float-end">Kembali</a>
+                                </h5>
+                                <div class="mb-3">
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label ">Plat Nomor</div>
+                                        <div class="col-lg-9 col-md-8">{{ $vehicle->plate_number }}</div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label">Tipe</div>
+                                        <div class="col-lg-9 col-md-8">{{ $vehicle->type }}</div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label">Merek</div>
+                                        <div class="col-lg-9 col-md-8">{{ $vehicle->make }}</div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label">Model</div>
+                                        <div class="col-lg-9 col-md-8">{{ $vehicle->model }}</div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label">Warna</div>
+                                        <div class="col-lg-9 col-md-8">{{ $vehicle->colour }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 

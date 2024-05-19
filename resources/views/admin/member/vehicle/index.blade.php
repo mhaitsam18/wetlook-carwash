@@ -1,11 +1,11 @@
 <x-admin-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-slot:style></x-slot:style>
-    {{-- <x-slot:headers>
+    <x-slot:headers>
         @foreach ($headers as $header)
             <li class="breadcrumb-item"><a href="{{ $header['href'] }}">{{ $header['slot'] }}</a></li>
         @endforeach
-    </x-slot:headers> --}}
+    </x-slot:headers>
     <!-- Left side columns -->
     <div class="col-lg-12">
         <div class="row">
@@ -31,6 +31,8 @@
                         <a href="/admin/member/{{ $member->id }}/vehicle/create"
                             class="btn btn-sm btn-primary d-inline m-1"><i class="bi bi-plus"></i>
                             Tambah</a>
+                        <a href="/admin/member" class="btn btn-sm btn-secondary d-inline m-1"><i class="bi bi-list"></i>
+                            List Member</a>
                         <table class="table table-hover table-responsive datatable" id="example1">
                             <thead>
                                 <tr>
