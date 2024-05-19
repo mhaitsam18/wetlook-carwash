@@ -47,7 +47,8 @@
                                     </div>
                                     <div class="row mb-1">
                                         <div class="col-lg-3 col-md-4 label ">Harga</div>
-                                        <div class="col-lg-9 col-md-8">{{ number_format($package->price, 2, ',', '.') }}
+                                        <div class="col-lg-9 col-md-8">
+                                            Rp.{{ number_format($package->price, 2, ',', '.') }}
                                         </div>
                                     </div>
                                     <div class="row mb-1">

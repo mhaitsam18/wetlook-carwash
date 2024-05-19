@@ -26,7 +26,39 @@
                     </div> --}}
 
                     <div class="card-body pb-0">
-                        <h5 class="card-title">Detail {{ $title }}</h5>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <img src="{{ $product->image ? asset('storage/' . $product->image) : '/assets/img/not-found.jpg' }}"
+                                    alt="Gambar" style="max-width: 200px;" class="my-3">
+                            </div>
+                            <div class="col-lg-6">
+                                <h5 class="card-title">Detail {{ $title }}
+                                    <a href="javascript:window.history.back();"
+                                        class="btn btn-sm btn-secondary float-end">Kembali</a>
+                                </h5>
+                                <div class="mb-3">
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label">Nama Produk / Jasa</div>
+                                        <div class="col-lg-9 col-md-8">{{ $product->name }}</div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label ">Paket</div>
+                                        <div class="col-lg-9 col-md-8">{{ $product->package->name ?? 'Semua Paket' }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label">Harga</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            Rp.{{ number_format($product->price, 2, ',', '.') }}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-3 col-md-4 label">Deskripsi</div>
+                                        <div class="col-lg-9 col-md-8">{!! $product->description !!}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 

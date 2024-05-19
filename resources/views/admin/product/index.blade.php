@@ -48,8 +48,11 @@
                                 @foreach ($products as $product)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td><a href="/admin/product/{{ $product->id }}"><img
-                                                    src="{{ asset('storage/' . $product->image) }}" alt=""></a>
+                                        <td>
+                                            <a href="/admin/product/{{ $product->id }}">
+                                                <img src="{{ $product->image ? asset('storage/' . $product->image) : '/assets/img/not-found.jpg' }}"
+                                                    alt="">
+                                            </a>
                                         </td>
                                         <td><a href="/admin/product/{{ $product->id }}"
                                                 class="text-primary fw-bold">{{ $product->name }}</a></td>
