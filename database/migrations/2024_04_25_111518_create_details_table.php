@@ -21,7 +21,7 @@ return new class extends Migration
                 ->constrained('products')
                 ->onUpdate('cascade')
                 ->nullOnDelete();
-            $table->string('item');
+            $table->string('item')->nullable();
             $table->integer('quantity')->nullable();
             $table->double('price')->nullable();
             $table->double('sub_total_price')->nullable();
