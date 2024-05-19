@@ -113,6 +113,7 @@ class AdminAdminController extends Controller
             'email' => 'required|email|unique:users,email,' . $admin->user->id,
             'username' => 'required|string|unique:users,username,' . $admin->user->id,
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3145728',
+            'password' => 'nullable|confirmed',  // Membuat password menjadi nullable
         ]);
 
         // Assign custom attribute names:
@@ -122,13 +123,13 @@ class AdminAdminController extends Controller
             'phone_number' => 'Nomor Ponsel',
         ];
 
-
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->with('error', 'Terjadi kesalahan dalam pengisian formulir.')
                 ->withInput();
         }
+
         $user = User::find($admin->user_id);
         if (!$user) {
             return redirect()->back()->with('error', 'Pengguna tidak ditemukan.');
@@ -141,9 +142,16 @@ class AdminAdminController extends Controller
             $path = $request->file('photo')->store('user-photo');
             $user->photo = $path;
         }
+
+        if ($request->filled('password')) {  // Memeriksa apakah password diinputkan
+            $user->password = Hash::make($request->input('password'));
+        }
+
         $user->save();
+
         return redirect()->back()->with('success', 'Data Admin berhasil diperbarui.');
     }
+
 
     public function updatePassword(Request $request, User $user)
     {

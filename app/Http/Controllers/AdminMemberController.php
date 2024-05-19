@@ -108,6 +108,7 @@ class AdminMemberController extends Controller
             'phone_number' => ['nullable', 'string', 'unique:members,phone_number,' . $member->id, 'regex:/^(?:\+62|0)[0-9\s-]+$/'],
             'address' => 'nullable',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:3145728',
+            'password' => 'nullable|confirmed',  // Membuat password menjadi nullable
         ]);
 
         // Assign custom attribute names:
@@ -137,6 +138,10 @@ class AdminMemberController extends Controller
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('user-photo');
             $user->photo = $path;
+        }
+
+        if ($request->filled('password')) {  // Memeriksa apakah password diinputkan
+            $user->password = Hash::make($request->input('password'));
         }
         $user->save();
 
