@@ -147,6 +147,7 @@
                                 </div>
                             </div>
                             <div class="text-center mb-3">
+                                <a href="javascript:window.history.back();" class="btn btn-secondary">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form><!-- End Profile Edit Form -->
