@@ -162,4 +162,9 @@ class AdminMemberController extends Controller
         $member->delete();
         return redirect('/admin/member')->with('success', 'Data Member berhasil dihapus');
     }
+
+    public function getMemberName(Member $member)
+    {
+        return response()->json(['name' => $member->user->name]);
+    }
 }

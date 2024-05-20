@@ -59,7 +59,16 @@
         @if (session()->has('warning'))
             <x-alert type="warning" :message="session()->get('warning')" :colour="'warning'" />
         @endif
-
+        @isset($noted)
+            @if ($noted != '')
+                <div>
+                    <div class="alert alert-secondary mb-3 mx-auto" role="alert">
+                        <h6 class="text-bold">Catatan:</h6>
+                        {{ $noted }}
+                    </div>
+                </div>
+            @endif
+        @endisset
         <div class="pagetitle">
             <h1>{{ $title ?? 'Wetlook Carwash' }}</h1>
             <nav>

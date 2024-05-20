@@ -69,3 +69,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout.post');
 });
+
+
+Route::get('/api/member-name/{member}', [AdminMemberController::class, 'getMemberName']);
+Route::get('/api/vehicles/{member}', [AdminVehicleController::class, 'getVehiclesByMember']);
+Route::get('/api/packages/{vehicle}', [AdminPackageController::class, 'getVehiclesByVehicle']);

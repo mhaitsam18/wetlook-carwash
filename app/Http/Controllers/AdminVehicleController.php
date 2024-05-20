@@ -150,4 +150,10 @@ class AdminVehicleController extends Controller
         $vehicle->delete();
         return redirect("/admin/member/$member->id/vehicle")->with('success', 'Data Kendaraan berhasil dihapus');
     }
+
+
+    public function getVehiclesByMember(Member $member)
+    {
+        return response()->json(['vehicles' => $member->vehicles]);
+    }
 }

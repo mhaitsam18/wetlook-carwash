@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Package;
 use App\Models\Room;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class AdminPackageController extends Controller
@@ -119,5 +120,17 @@ class AdminPackageController extends Controller
         $package->delete();
 
         return redirect("/admin/package")->with('success', 'Data Paket berhasil dihapus');
+    }
+
+    function getVehiclesByVehicle(Vehicle $vehicle)
+    {
+        if ($vehicle->type == 'car') {
+            $packages = Package::where('room_id', 1)->get();
+        } elseif ($vehicle->type == 'motorcycle') {
+            $packages = Package::where('room_id', 2)->get();
+        } else {
+            $packages = Package::all();
+        }
+        return response()->json(['packages' => $packages]);
     }
 }

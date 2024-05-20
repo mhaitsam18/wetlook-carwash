@@ -26,7 +26,7 @@
                     </div> --}}
 
                     <div class="card-body pb-0">
-                        <h5 class="card-title">Detail {{ $title }}</h5>
+                        <h5 class="card-title">{{ $title }}</h5>
 
                     </div>
 

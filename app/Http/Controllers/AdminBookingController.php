@@ -29,7 +29,7 @@ class AdminBookingController extends Controller
         $currentDate = Carbon::now()->toDateString();
         return view('admin.booking.index', [
             'title' => 'Data Booking',
-            'bookings' => Booking::all(),
+            'bookings' => Booking::whereDate('date', '>=', $currentDate)->latest()->get(),
         ]);
     }
 
@@ -62,6 +62,7 @@ class AdminBookingController extends Controller
             'package_id' => 'required',
             'vehicle_id' => 'nullable',
             'member_id' => 'nullable',
+            'name' => 'nullable',
             'date' => 'required',
             'time' => 'required',
             'status' => 'required',

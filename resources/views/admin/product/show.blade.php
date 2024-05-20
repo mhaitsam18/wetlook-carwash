@@ -32,7 +32,7 @@
                                     alt="Gambar" style="max-width: 200px;" class="my-3">
                             </div>
                             <div class="col-lg-6">
-                                <h5 class="card-title">Detail {{ $title }}
+                                <h5 class="card-title">{{ $title }}
                                     <a href="javascript:window.history.back();"
                                         class="btn btn-sm btn-secondary float-end">Kembali</a>
                                 </h5>

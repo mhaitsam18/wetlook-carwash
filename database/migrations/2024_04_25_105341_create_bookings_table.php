@@ -25,6 +25,7 @@ return new class extends Migration
                 ->constrained('members')
                 ->onUpdate('cascade')
                 ->nullOnDelete();
+            $table->string('name')->nullable();
             $table->date('date');
             $table->time('time');
             $table->enum('status', [

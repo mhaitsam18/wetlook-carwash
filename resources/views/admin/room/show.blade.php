@@ -28,7 +28,7 @@
                     <div class="card-body pb-0">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h5 class="card-title">Detail {{ $title }}
+                                <h5 class="card-title">{{ $title }}
                                     <a href="javascript:window.history.back();"
                                         class="btn btn-sm btn-secondary float-end">Kembali</a>
                                 </h5>
