@@ -117,6 +117,7 @@ class AdminBookingController extends Controller
             'package_id' => 'required',
             'vehicle_id' => 'nullable',
             'member_id' => 'nullable',
+            'name' => 'nullable',
             'date' => 'required',
             'time' => 'required',
             'status' => 'required',

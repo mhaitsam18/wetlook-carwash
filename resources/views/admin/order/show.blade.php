@@ -26,13 +26,137 @@
                     </div> --}}
 
                     <div class="card-body pb-0">
-                        <h5 class="card-title">{{ $title }}</h5>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <h5 class="card-title">{{ $title }}
+                                    <a href="javascript:window.history.back();"
+                                        class="btn btn-sm btn-secondary float-end">Kembali</a>
+                                </h5>
+                            </div>
+                            <div class="col-lg-3">
+                                <h6 class="card-title">Detail Pemesanan</h6>
+                                <div class="mb-3">
+                                    <div class="row mb-1">
+                                        <div class="col-lg-5 col-md-4 label">Status Pemesanan</div>
+                                        <div class="col-lg-7 col-md-8">{{ $order->status }}</div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-5 col-md-4 label">Catatan Pelanggan</div>
+                                        <div class="col-lg-7 col-md-8">{{ $order->customer_records }}</div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-5 col-md-4 label">Total Pemesanan</div>
+                                        <div class="col-lg-7 col-md-8">
+                                            Rp.{{ number_format($order->total_price, 2, ',', '.') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="card-title">Detail Pesanan</h5>
 
+                        <a href="/admin/order/{{ $order->id }}/detail/create"
+                            class="btn btn-sm btn-primary d-inline m-1"><i class="bi bi-plus"></i>
+                            Tambah</a>
+                        <table class="table table-hover table-responsive datatable" id="example1">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Gambar Produk</th>
+                                    <th scope="col">Nama Produk</th>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Harga</th>
+                                    <th scope="col">SubTotal</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>
+                                        <a href="/admin/package/{{ $order->booking->package->id }}">
+                                            <img src="/assets/img/not-found.jpg">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="/admin/package/{{ $order->booking->package->id }}">{{ $order->booking->package->name }}</a>
+                                    </td>
+                                    <td>{!! $order->booking->package->description !!}</td>
+                                    <td>1</td>
+                                    <td>Rp.{{ number_format($order->booking->package->price, 2, ',', '.') }}</td>
+                                    <td>Rp.{{ number_format($order->booking->package->price, 2, ',', '.') }}</td>
+                                    <td>
+                                        <a href="/admin/booking/{{ $order->booking->id }}/edit"
+                                            class="btn btn-sm btn-success d-inline m-1"><i
+                                                class="bi bi-pencil-square"></i>
+                                            Sunting</a>
+                                    </td>
+                                </tr>
+                                @foreach ($order->details as $detail)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration + 1 }}</th>
+                                        <td>
+                                            <a href="/admin/product/{{ $detail->product_id }}">
+                                                <img src="{{ $detail->product->image ? asset('storage/' . $detail->product->image) : '/assets/img/not-found.jpg' }}"
+                                                    alt="">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="/admin/product/{{ $detail->product_id }}"
+                                                class="text-primary fw-bold">
+                                                {{ $detail->product->name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $detail->item }}</td>
+                                        <td>{{ $detail->quantity }}</td>
+                                        <td>Rp.{{ number_format($detail->price, 2, ',', '.') }}</td>
+                                        <td>Rp.{{ number_format($detail->sub_total_price, 2, ',', '.') }}</td>
+                                        <td>
+                                            @if ($order->booking->status == 'pending' || $order->booking->status == 'confirmation')
+                                                <div class="d-flex">
+                                                    <a href="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/add"
+                                                        class="btn btn-sm btn-success d-inline m-1"><i
+                                                            class="bi bi-plus"></i></a>
+                                                    <a href="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/decrease"
+                                                        class="btn btn-sm btn-warning d-inline m-1"><i
+                                                            class="bi bi-dash"></i></a>
+                                                    <form
+                                                        action="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}"
+                                                        method="post">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <input type="hidden" name="id"
+                                                            value="{{ $detail->id }}">
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-danger d-inline m-1 tombol-hapus"><i
+                                                                class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="6" class="text-right">Total: </th>
+                                    <th class="text-right p-2">
+                                        Rp.{{ number_format($order->total_price, 2, ',', '.') }}
+                                    </th>
+                                    <td>
+                                        @if ($order->booking->status == 'confirmation' || $order->booking->status == 'pending')
+                                            <a href="/admin/order/{{ $order->id }}/checkout"
+                                                class="btn btn-sm btn-danger"><i class="bi bi-cart"></i>
+                                                Checkout</a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
-
                 </div>
             </div><!-- End Top Selling -->
-
         </div>
     </div><!-- End Left side columns -->
     <x-slot:script></x-slot:script>

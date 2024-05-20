@@ -26,7 +26,75 @@
                     </div> --}}
 
                     <div class="card-body pb-0">
-                        <h5 class="card-title">Form {{ $title }}</h5>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h5 class="card-title">Form {{ $title }}</h5>
+                            </div>
+                            <div class="col-lg-8">
+
+                            </div>
+                            <form class="row" action="/admin/order/{{ $order->id }}" method="post"
+                                enctype="multipart/form-data">
+                                <div class="col-lg-6">
+                                    @method('put')
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ old('id', $order->id) }}">
+                                    <div class="row mb-3">
+                                        <label for="total_price" class="col-md-4 col-lg-3 col-form-label">Total
+                                            Harga</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="total_price" type="number"
+                                                class="form-control @error('total_price') is-invalid @enderror"
+                                                id="total_price" value="{{ old('total_price', $order->total_price) }}">
+                                            @error('total_price')
+                                                <div class="text-danger fs-6">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="status" class="col-md-4 col-lg-3 col-form-label">Status</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <select name="status"
+                                                class="form-select @error('status') is-invalid @enderror"
+                                                id="status">
+                                                <option selected disabled value="">Pilih Status</option>
+                                                <option value="pending" @selected('pending' == old('status', $order->status))>Pending</option>
+                                                <option value="confirmed" @selected('confirmed' == old('status', $order->status))>dikonfirmasi
+                                                </option>
+                                                <option value="cancelled" @selected('cancelled' == old('status', $order->status))>dibatalkan
+                                                </option>
+                                                <option value="completed" @selected('completed' == old('status', $order->status))>Selesai</option>
+                                            </select>
+                                            @error('status')
+                                                <div class="text-danger fs-6">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label for="customer_records" class="col-md-4 col-lg-3 col-form-label">Catatan
+                                            Pelanggan</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <textarea name="customer_records" class="form-control @error('customer_records') is-invalid @enderror"
+                                                id="customer_records">{{ old('customer_records', $order->customer_records) }}</textarea>
+                                            @error('customer_records')
+                                                <div class="text-danger fs-6">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="text-center mb-3">
+                                        <a href="javascript:window.history.back();"
+                                            class="btn btn-secondary">Kembali</a>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </div>
+                            </form><!-- End Profile Edit Form -->
+                        </div>
 
                     </div>
 

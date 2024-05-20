@@ -41,6 +41,7 @@
                                     <th scope="col">Tanggal yang dipesan</th>
                                     <th scope="col">Waktu</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Catatan Pelanggan</th>
                                     <th scope="col">Total Harga</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
@@ -69,6 +70,7 @@
                                         @endphp
                                         <td><span class="badge text-bg-{{ $badge }}">{{ $order->status }}</span>
                                         </td>
+                                        <td>{{ $order->customer_records }}</td>
                                         <td>Rp.{{ number_format($order->total_price, 2, ',', '.') }}</td>
                                         <td>
                                             <div class="d-flex">

@@ -54,6 +54,7 @@ class AdminOrderController extends Controller
                 'package_id' => 'required',
                 'vehicle_id' => 'nullable',
                 'member_id' => 'nullable',
+                'name' => 'nullable',
                 'date' => 'required',
                 'time' => 'required',
             ], [], [
@@ -70,6 +71,7 @@ class AdminOrderController extends Controller
                 'booking_id' => $booking->id,
                 'total_price' => $booking->package->price,
                 'status' => $booking->status,
+                'customer_records' => $booking->customer_records,
             ]
         );
         return redirect('/admin/order')->with('success', 'Data Pemesanan berhasil ditambahkan');
@@ -106,6 +108,7 @@ class AdminOrderController extends Controller
     {
         $validatedData = $request->validate([
             'status' => 'required',
+            'customer_records' => 'required',
         ]);
 
         $order->update($validatedData);
