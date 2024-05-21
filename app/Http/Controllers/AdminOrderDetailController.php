@@ -67,6 +67,41 @@ class AdminOrderDetailController extends Controller
         ]);
     }
 
+    public function add(Request $request, Order $order, Detail $detail)
+    {
+        $quantity = $detail->quantity + 1;
+        $sub_total_price = $quantity * $detail->price;
+        $detail->update([
+            'quantity' => $quantity,
+            'sub_total_price' => $sub_total_price
+        ]);
+
+        // Update total_price pada Order
+        $order->update([
+            'total_price' => $order->details->sum('sub_total_price')
+        ]);
+        return back()->with('success', 'Detail pesanan ditambahkan');
+    }
+    public function decrease(Request $request, Order $order, Detail $detail)
+    {
+        if ($detail->quantity > 1) {
+            $quantity = $detail->quantity - 1;
+            $sub_total_price = $quantity * $detail->price;
+            $detail->update([
+                'quantity' => $quantity,
+                'sub_total_price' => $sub_total_price
+            ]);
+        } else {
+            $detail->delete();
+        }
+
+        // Update total_price pada Order
+        $order->update([
+            'total_price' => $order->details->sum('sub_total_price')
+        ]);
+        return back()->with('success', 'Detail pesanan dihapus');
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -96,18 +131,29 @@ class AdminOrderDetailController extends Controller
         // Pengambilan Nilai Default Item
         $item = $request->item ?? ($product ? $product->name : null);
 
-        $quantity = $request->quantity;
-        $sub_total_price = $quantity * $price;
+        $detail = Detail::where('order_id', $order_id)->where('product_id', $request->product_id)->first();
+        if (!$detail) {
+            $quantity = $request->quantity;
+            $sub_total_price = $quantity * $price;
 
-        // Membuat Detail baru
-        Detail::create([
-            'order_id' => $order_id,
-            'product_id' => $request->product_id,
-            'item' => $item,
-            'quantity' => $quantity,
-            'price' => $price,
-            'sub_total_price' => $sub_total_price,
-        ]);
+            // Membuat Detail baru
+            Detail::create([
+                'order_id' => $order_id,
+                'product_id' => $request->product_id,
+                'item' => $item,
+                'quantity' => $quantity,
+                'price' => $price,
+                'sub_total_price' => $sub_total_price,
+            ]);
+        } else {
+            $quantity = $detail->quantity + $request->quantity;
+            $sub_total_price = $quantity * $price;
+            $detail->update([
+                'quantity' => $quantity,
+                'sub_total_price' => $sub_total_price
+            ]);
+        }
+
 
         // Update total_price pada Order
         $order->update([

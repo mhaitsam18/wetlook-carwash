@@ -24,6 +24,9 @@
             <x-nav-link href="/my-profile" :active="request()->is('my-profile')">Profil Saya</x-nav-link>
             <x-nav-link href="/member/vehicle" :active="Str::startsWith(request()->path(), 'member/vehicle')">Kendaraan Saya</x-nav-link>
         @endcan
+        @can('admin')
+            <x-nav-link href="/admin/index" :active="Str::startsWith(request()->path(), 'admin/index')">Halaman Admin</x-nav-link>
+        @endcan
         @guest
             <x-nav-link href="/register" :active="request()->is('register')">Registrasi</x-nav-link>
             @if ($mobile)
