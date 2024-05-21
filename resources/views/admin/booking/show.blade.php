@@ -137,7 +137,9 @@
                                     <th scope="col">Jumlah</th>
                                     <th scope="col">Harga</th>
                                     <th scope="col">SubTotal</th>
-                                    <th scope="col">Aksi</th>
+                                    @if ($booking->status == 'pending' || $booking->status == 'confirmation')
+                                        <th scope="col">Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -156,12 +158,14 @@
                                     <td>1</td>
                                     <td>Rp.{{ number_format($booking->package->price, 2, ',', '.') }}</td>
                                     <td>Rp.{{ number_format($booking->package->price, 2, ',', '.') }}</td>
-                                    <td>
-                                        <a href="/admin/booking/{{ $booking->id }}/edit"
-                                            class="btn btn-sm btn-success d-inline m-1"><i
-                                                class="bi bi-pencil-square"></i>
-                                            Sunting</a>
-                                    </td>
+                                    @if ($booking->status == 'pending' || $booking->status == 'confirmation')
+                                        <td>
+                                            <a href="/admin/booking/{{ $booking->id }}/edit"
+                                                class="btn btn-sm btn-success d-inline m-1"><i
+                                                    class="bi bi-pencil-square"></i>
+                                                Sunting</a>
+                                        </td>
+                                    @endif
                                 </tr>
                                 @foreach ($booking->order->details as $detail)
                                     <tr>
@@ -182,8 +186,8 @@
                                         <td>{{ $detail->quantity }}</td>
                                         <td>Rp.{{ number_format($detail->price, 2, ',', '.') }}</td>
                                         <td>Rp.{{ number_format($detail->sub_total_price, 2, ',', '.') }}</td>
-                                        <td>
-                                            @if ($booking->status == 'pending' || $booking->status == 'confirmation')
+                                        @if ($booking->status == 'pending' || $booking->status == 'confirmation')
+                                            <td>
                                                 <div class="d-flex">
                                                     <form
                                                         action="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/add"
@@ -215,8 +219,8 @@
                                                                 class="bi bi-trash"></i></button>
                                                     </form>
                                                 </div>
-                                            @endif
-                                        </td>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -226,13 +230,17 @@
                                     <th class="text-right p-2">
                                         Rp.{{ number_format($booking->order->total_price, 2, ',', '.') }}
                                     </th>
-                                    <td>
-                                        @if ($booking->status == 'confirmation' || $booking->status == 'pending')
-                                            <a href="/admin/order/{{ $booking->order->id }}/checkout"
-                                                class="btn btn-sm btn-danger"><i class="bi bi-cart"></i>
-                                                Checkout</a>
-                                        @endif
-                                    </td>
+                                    @if ($booking->status == 'confirmation' || $booking->status == 'pending')
+                                        <td>
+                                            <form action="/admin/order/{{ $booking->order->id }}/checkout"
+                                                method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="bi bi-cart"></i> Checkout
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             </tfoot>
                         </table>

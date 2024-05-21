@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('booking', AdminBookingController::class);
             Route::resource('order', AdminOrderController::class);
             Route::resource('order.detail', AdminOrderDetailController::class);
+            Route::post('/order/{order}/checkout', [AdminOrderController::class, 'checkout'])->name('admin.order.checkout');
             Route::post('/order/{order}/detail/{detail}/add', [AdminOrderDetailController::class, 'add'])->name('admin.order.detail.add');
             Route::post('/order/{order}/detail/{detail}/decrease', [AdminOrderDetailController::class, 'decrease'])->name('admin.order.detail.decrease');
             Route::resource('order.payment', AdminOrderPaymentController::class);

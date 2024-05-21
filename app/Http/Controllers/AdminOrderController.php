@@ -115,6 +115,17 @@ class AdminOrderController extends Controller
         return redirect('/admin/order')->with('success', 'Pemesanan diperbarui');
     }
 
+    function checkout(Request $request, Order $order)
+    {
+        $order->update([
+            'status' => 'completed',
+        ]);
+        $order->booking->update([
+            'status' => 'completed',
+        ]);
+        return back()->with('success', 'Pemesanan berhasil dicheckout');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

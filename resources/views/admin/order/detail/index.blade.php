@@ -41,7 +41,9 @@
                                     <th scope="col">Jumlah</th>
                                     <th scope="col">Harga satuan</th>
                                     <th scope="col">Sub Total</th>
-                                    <th scope="col">Aksi</th>
+                                    @if ($order->status == 'pending' || $order->status == 'confirmation')
+                                        <th scope="col">Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,7 +54,14 @@
                                     <td>1</td>
                                     <td>Rp.{{ number_format($order->booking->package->price, 2, ',', '.') }}</td>
                                     <td>Rp.{{ number_format($order->booking->package->price, 2, ',', '.') }}</td>
-                                    <td></td>
+                                    @if ($order->status == 'pending' || $order->status == 'confirmation')
+                                        <td>
+                                            <a href="/admin/booking/{{ $order->booking->id }}/edit"
+                                                class="btn btn-sm btn-success d-inline m-1"><i
+                                                    class="bi bi-pencil-square"></i>
+                                                Sunting</a>
+                                        </td>
+                                    @endif
                                 </tr>
                                 @foreach ($order->details as $detail)
                                     <tr>
@@ -66,38 +75,43 @@
                                         <td>{{ $detail->quantity }}</td>
                                         <td>Rp.{{ number_format($detail->price, 2, ',', '.') }}</td>
                                         <td>Rp.{{ number_format($detail->sub_total_price, 2, ',', '.') }}</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                {{-- <a href="/admin/detail/{{ $detail->id }}/edit"
+                                        @if ($order->status == 'pending' || $order->status == 'confirmation')
+                                            <td>
+                                                <div class="d-flex">
+                                                    {{-- <a href="/admin/detail/{{ $detail->id }}/edit"
                                                     class="btn btn-sm btn-success d-inline m-1"><i
                                                         class="bi bi-pencil-square"></i>
                                                     Sunting</a> --}}
-                                                <form
-                                                    action="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/add"
-                                                    method="post">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-sm btn-success d-inline m-1">
-                                                        <i class="bi bi-plus"></i>
-                                                    </button>
-                                                </form>
-                                                <form
-                                                    action="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/decrease"
-                                                    method="post">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-sm btn-warning d-inline m-1">
-                                                        <i class="bi bi-dash"></i>
-                                                    </button>
-                                                </form>
-                                                <form action="/admin/detail/{{ $detail->id }}" method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{ $detail->id }}">
-                                                    <button type="submit"
-                                                        class="btn btn-sm btn-danger d-inline m-1 tombol-hapus"><i
-                                                            class="bi bi-trash"></i></button>
-                                                </form>
-                                            </div>
-                                        </td>
+                                                    <form
+                                                        action="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/add"
+                                                        method="post">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-success d-inline m-1">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    </form>
+                                                    <form
+                                                        action="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/decrease"
+                                                        method="post">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-warning d-inline m-1">
+                                                            <i class="bi bi-dash"></i>
+                                                        </button>
+                                                    </form>
+                                                    <form action="/admin/detail/{{ $detail->id }}" method="post">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <input type="hidden" name="id"
+                                                            value="{{ $detail->id }}">
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-danger d-inline m-1 tombol-hapus"><i
+                                                                class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -106,13 +120,16 @@
                                     <th colspan="5">Total</th>
                                     <th>Rp.{{ number_format($order->details->sum('sub_total_price') + $order->booking->package->price, 2, ',', '.') }}
                                     </th>
-                                    <td>
-                                        @if ($order->booking->status == 'confirmation' || $order->booking->status == 'pending')
-                                            <a href="/admin/order/{{ $order->id }}/checkout"
-                                                class="btn btn-sm btn-danger"><i class="bi bi-cart"></i>
-                                                Checkout</a>
-                                        @endif
-                                    </td>
+                                    @if ($order->booking->status == 'confirmation' || $order->booking->status == 'pending')
+                                        <td>
+                                            <form action="/admin/order/{{ $order->id }}/checkout" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="bi bi-cart"></i> Checkout
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
 
                             </tfoot>
