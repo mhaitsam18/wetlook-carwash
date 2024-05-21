@@ -62,8 +62,8 @@
                                                 class="text-primary fw-bold">{{ $detail->product->name }}</a>
                                         </td>
                                         <td><a href="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}"
-                                                class="fw-bold">{{ $detail->item }}</a></td>
-                                        <td>{{ $detail->jumlah }}</td>
+                                                class="fw-bold text-decoration-none">{{ $detail->item }}</a></td>
+                                        <td>{{ $detail->quantity }}</td>
                                         <td>Rp.{{ number_format($detail->price, 2, ',', '.') }}</td>
                                         <td>Rp.{{ number_format($detail->sub_total_price, 2, ',', '.') }}</td>
                                         <td>
@@ -94,7 +94,7 @@
                                                     <input type="hidden" name="id" value="{{ $detail->id }}">
                                                     <button type="submit"
                                                         class="btn btn-sm btn-danger d-inline m-1 tombol-hapus"><i
-                                                            class="bi bi-trash"></i> Hapus</button>
+                                                            class="bi bi-trash"></i></button>
                                                 </form>
                                             </div>
                                         </td>

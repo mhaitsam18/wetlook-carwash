@@ -6,6 +6,7 @@ use App\Models\Detail;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminOrderDetailController extends Controller
 {
@@ -69,38 +70,57 @@ class AdminOrderDetailController extends Controller
 
     public function add(Request $request, Order $order, Detail $detail)
     {
-        $quantity = $detail->quantity + 1;
-        $sub_total_price = $quantity * $detail->price;
-        $detail->update([
-            'quantity' => $quantity,
-            'sub_total_price' => $sub_total_price
-        ]);
+        // Pastikan Detail yang diberikan benar-benar milik Order yang sesuai
+        if ($detail->order_id !== $order->id) {
+            return back()->withErrors(['detail' => 'Detail tidak valid untuk pesanan ini']);
+        }
 
-        // Update total_price pada Order
-        $order->update([
-            'total_price' => $order->details->sum('sub_total_price')
-        ]);
-        return back()->with('success', 'Detail pesanan ditambahkan');
-    }
-    public function decrease(Request $request, Order $order, Detail $detail)
-    {
-        if ($detail->quantity > 1) {
-            $quantity = $detail->quantity - 1;
+        DB::transaction(function () use ($order, $detail) {
+            $quantity = $detail->quantity + 1;
             $sub_total_price = $quantity * $detail->price;
+
             $detail->update([
                 'quantity' => $quantity,
                 'sub_total_price' => $sub_total_price
             ]);
-        } else {
-            $detail->delete();
+
+            // Update total_price pada Order
+            $order->update([
+                'total_price' => $order->details->sum('sub_total_price') + $order->booking->package->price ?? 0
+            ]);
+        });
+
+        return back()->with('success', 'Detail pesanan ditambahkan');
+    }
+
+    public function decrease(Request $request, Order $order, Detail $detail)
+    {
+        // Pastikan Detail yang diberikan benar-benar milik Order yang sesuai
+        if ($detail->order_id !== $order->id) {
+            return back()->withErrors(['detail' => 'Detail tidak valid untuk pesanan ini']);
         }
 
-        // Update total_price pada Order
-        $order->update([
-            'total_price' => $order->details->sum('sub_total_price')
-        ]);
-        return back()->with('success', 'Detail pesanan dihapus');
+        DB::transaction(function () use ($order, $detail) {
+            if ($detail->quantity > 1) {
+                $quantity = $detail->quantity - 1;
+                $sub_total_price = $quantity * $detail->price;
+                $detail->update([
+                    'quantity' => $quantity,
+                    'sub_total_price' => $sub_total_price
+                ]);
+            } else {
+                $detail->delete();
+            }
+
+            // Update total_price pada Order
+            $order->update([
+                'total_price' => $order->details->sum('sub_total_price') + $order->booking->package->price ?? 0
+            ]);
+        });
+
+        return back()->with('success', 'Detail pesanan diperbarui');
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -108,11 +128,11 @@ class AdminOrderDetailController extends Controller
     public function store(Request $request, Order $order)
     {
         $validatedData = $request->validate([
-            'order_id' => 'nullable',
-            'product_id' => 'nullable',
-            'item' => 'nullable',
-            'quantity' => 'required',
-            'price' => 'nullable',
+            'order_id' => 'nullable|exists:orders,id',
+            'product_id' => 'nullable|exists:products,id',
+            'item' => 'nullable|string',
+            'quantity' => 'required|integer|min:1',
+            'price' => 'nullable|numeric|min:0',
         ], [], [
             'order_id' => 'pemesanan',
             'product_id' => 'produk',
@@ -126,12 +146,19 @@ class AdminOrderDetailController extends Controller
 
         // Mencari Product
         $product = Product::find($request->product_id);
-        $price = $request->price ?? $product->price;
+
+        // Pastikan produk ditemukan jika product_id ada
+        if ($request->has('product_id') && !$product) {
+            return redirect()->back()->withErrors(['product_id' => 'Produk tidak ditemukan']);
+        }
+
+        $price = $request->price ?? $product->price ?? 0;
 
         // Pengambilan Nilai Default Item
-        $item = $request->item ?? ($product ? $product->name : null);
+        $item = $request->item ?? ($product ? $product->name : 'Tidak diketahui');
 
         $detail = Detail::where('order_id', $order_id)->where('product_id', $request->product_id)->first();
+
         if (!$detail) {
             $quantity = $request->quantity;
             $sub_total_price = $quantity * $price;
@@ -154,14 +181,14 @@ class AdminOrderDetailController extends Controller
             ]);
         }
 
-
         // Update total_price pada Order
         $order->update([
-            'total_price' => $order->details->sum('sub_total_price')
+            'total_price' => $order->details->sum('sub_total_price') + $order->booking->package->price ?? 0
         ]);
 
         return redirect("/admin/order/$order->id/detail")->with('success', 'Data Detail Pemesanan berhasil ditambahkan');
     }
+
 
 
     /**
@@ -230,7 +257,7 @@ class AdminOrderDetailController extends Controller
 
         // Update total_price pada Order
         $order->update([
-            'total_price' => $order->details->sum('sub_total_price')
+            'total_price' => $order->details->sum('sub_total_price') + $order->booking->package->price ?? 0
         ]);
 
         return redirect("/admin/order/$order->id/detail")->with('success', 'Data Detail Pemesanan berhasil diperbarui');
@@ -243,7 +270,7 @@ class AdminOrderDetailController extends Controller
     {
         $detail->delete();
         $order->update([
-            'total_price' => $order->details->sum('sub_total_price')
+            'total_price' => $order->details->sum('sub_total_price') + $order->booking->package->price ?? 0
         ]);
         return redirect("/admin/order/$order->id/detail")->with('success', 'Data Detail Pemesanan berhasil dihapus');
     }

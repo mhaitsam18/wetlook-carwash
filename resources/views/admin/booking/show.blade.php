@@ -185,12 +185,24 @@
                                         <td>
                                             @if ($booking->status == 'pending' || $booking->status == 'confirmation')
                                                 <div class="d-flex">
-                                                    <a href="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/add"
-                                                        class="btn btn-sm btn-success d-inline m-1"><i
-                                                            class="bi bi-plus"></i></a>
-                                                    <a href="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/decrease"
-                                                        class="btn btn-sm btn-warning d-inline m-1"><i
-                                                            class="bi bi-dash"></i></a>
+                                                    <form
+                                                        action="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/add"
+                                                        method="post">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-success d-inline m-1">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    </form>
+                                                    <form
+                                                        action="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}/decrease"
+                                                        method="post">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-warning d-inline m-1">
+                                                            <i class="bi bi-dash"></i>
+                                                        </button>
+                                                    </form>
                                                     <form
                                                         action="/admin/order/{{ $detail->order_id }}/detail/{{ $detail->id }}"
                                                         method="post">

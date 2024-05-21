@@ -26,7 +26,34 @@
                     </div> --}}
 
                     <div class="card-body pb-0">
-                        <h5 class="card-title">{{ $title }}</h5>
+                        <div class="col-lg-12 col-md-12">
+                            <h5 class="card-title">{{ $title }}
+                                <a href="javascript:window.history.back();"
+                                    class="btn btn-sm btn-secondary float-end">Kembali</a>
+                            </h5>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <div class="row mb-1">
+                                    <div class="col-lg-5 col-md-4 label">Item</div>
+                                    <div class="col-lg-7 col-md-8">{{ $detail->product->name ?? $detail->item }}</div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-lg-5 col-md-4 label">Jumlah</div>
+                                    <div class="col-lg-7 col-md-8">{{ $detail->quantity }}</div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-lg-5 col-md-4 label">Harga</div>
+                                    <div class="col-lg-7 col-md-8">
+                                        Rp.{{ number_format($detail->price, 2, ',', '.') }}</div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-lg-5 col-md-4 label">Sub Total</div>
+                                    <div class="col-lg-7 col-md-8">
+                                        Rp.{{ number_format($detail->sub_total_price, 2, ',', '.') }}</div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
