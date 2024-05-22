@@ -46,20 +46,22 @@
                                     <tr>
                                         <th scope="row">{{ $loop->iteration + 1 }}</th>
                                         <td>
-                                            <a href="{{ asset('storage/' . $payment->evidance) }}"><img
-                                                    src="{{ asset('storage/' . $payment->evidance) }}"
-                                                    alt=""></a>
+                                            <a href="{{ asset('storage/' . $payment->evidence) }}">Bukti Pembayaran</a>
                                         </td>
-                                        <td><a
-                                                href="/admin/product/{{ $payment->id }}">Rp.{{ number_format($payment->amount, 2, ',', '.') }}</a>
+                                        <td>
+                                            <a href="/admin/order/{{ $payment->order_id }}/payment/{{ $payment->id }}">
+                                                Rp.{{ number_format($payment->amount, 2, ',', '.') }}
+                                            </a>
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <a href="/admin/payment/{{ $payment->id }}/edit"
+                                                <a href="/admin/order/{{ $payment->order_id }}/payment/{{ $payment->id }}/edit"
                                                     class="btn btn-sm btn-success d-inline m-1"><i
                                                         class="bi bi-pencil-square"></i>
                                                     Sunting</a>
-                                                <form action="/admin/payment/{{ $payment->id }}" method="post">
+                                                <form
+                                                    action="/admin/order/{{ $payment->order_id }}/payment/{{ $payment->id }}"
+                                                    method="post">
                                                     @method('delete')
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $payment->id }}">

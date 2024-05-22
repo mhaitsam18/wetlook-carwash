@@ -61,17 +61,20 @@ class AdminOrderPaymentController extends Controller
         $validatedData = $request->validate([
             'order_id' => 'nullable',
             'evidence' => 'required|mimes:jpeg,png,jpg,gif,pdf|max:3145728',
+            'amount' => 'required',
         ], [], [
             'order_id' => 'pemesanan',
             'evidence' => 'bukti',
+            'amount' => 'jumlah',
         ]);
         if ($request->hasFile('evidence')) {
             $path = $request->file('evidence')->store('payment-evidence');
             $validatedData['evidence'] = $path;
         }
         Payment::create([
-            'order_id' => $order->id,
-            'evidence' => $validatedData['evidence']
+            'order_id' => $validatedData['order_id'] ?? $order->id,
+            'evidence' => $validatedData['evidence'],
+            'amount' => $validatedData['amount'],
         ]);
 
         return redirect("/admin/order/$order->id/payment")->with('success', 'Data Pembayaran berhasil ditambahkan');
@@ -111,16 +114,19 @@ class AdminOrderPaymentController extends Controller
     public function update(Request $request, Order $order, Payment $payment)
     {
         $validatedData = $request->validate([
-            'evidence' => 'required|mimes:jpeg,png,jpg,gif,pdf|max:3145728',
+            'evidence' => 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:3145728',
+            'amount' => 'required',
         ], [], [
             'evidence' => 'bukti',
+            'amount' => 'jumlah',
         ]);
         if ($request->hasFile('evidence')) {
             $path = $request->file('evidence')->store('payment-evidence');
             $validatedData['evidence'] = $path;
         }
         $payment->update([
-            'evidence' => $validatedData['evidence']
+            'evidence' => $validatedData['evidence'],
+            'amount' => $validatedData['amount']
         ]);
 
         return redirect("/admin/order/$order->id/payment")->with('success', 'Data Pembayaran berhasil diperbarui');

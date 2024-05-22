@@ -26,7 +26,29 @@
                     </div> --}}
 
                     <div class="card-body pb-0">
-                        <h5 class="card-title">{{ $title }}</h5>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <h5 class="card-title">{{ $title }}
+                                    <a href="javascript:window.history.back();"
+                                        class="btn btn-sm btn-secondary float-end">Kembali</a>
+                                </h5>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <div class="row mb-1">
+                                        <div class="col-lg-5 col-md-4 label">Jumlah</div>
+                                        <div class="col-lg-7 col-md-8">
+                                            Rp.{{ number_format($payment->amount, 2, ',', '.') }}</div>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col-lg-5 col-md-4 label">Bukti</div>
+                                        <div class="col-lg-7 col-md-8"><a
+                                                href="{{ asset('storage/' . $payment->evidence) }}">Bukti Pembayaran</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
