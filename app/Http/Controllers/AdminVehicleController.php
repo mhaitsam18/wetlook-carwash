@@ -12,10 +12,16 @@ class AdminVehicleController extends Controller
 
     public function __construct()
     {
-        $this->headers = [[
-            'href' => '/admin/member',
-            'slot' => 'Data Member'
-        ]];
+        $this->headers = [
+            [
+                'href' => '/admin/member',
+                'slot' => 'Data Member'
+            ],
+            [
+                'href' => '/admin/vehicle',
+                'slot' => 'Data Kendaraan'
+            ],
+        ];
     }
 
 
