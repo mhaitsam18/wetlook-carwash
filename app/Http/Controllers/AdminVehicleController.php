@@ -17,10 +17,6 @@ class AdminVehicleController extends Controller
                 'href' => '/admin/member',
                 'slot' => 'Data Member'
             ],
-            [
-                'href' => '/admin/vehicle',
-                'slot' => 'Data Kendaraan'
-            ],
         ];
     }
 
@@ -96,6 +92,7 @@ class AdminVehicleController extends Controller
      */
     public function show(Member $member, Vehicle $vehicle)
     {
+        $this->addDynamicHeader($member);
         return view('admin.member.vehicle.show', [
             'title' => 'Detail Kendaraan',
             'member' => $member,
@@ -109,6 +106,7 @@ class AdminVehicleController extends Controller
      */
     public function edit(Member $member, Vehicle $vehicle)
     {
+        $this->addDynamicHeader($member);
         return view('admin.member.vehicle.edit', [
             'title' => 'Sunting Kendaraan',
             'member' => $member,
