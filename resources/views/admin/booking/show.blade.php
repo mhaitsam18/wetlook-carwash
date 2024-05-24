@@ -124,9 +124,11 @@
                         </div>
                         <h5 class="card-title">Detail Pesanan</h5>
 
-                        <a href="/admin/order/{{ $booking->order->id }}/detail/create"
-                            class="btn btn-sm btn-primary d-inline m-1"><i class="bi bi-plus"></i>
-                            Tambah</a>
+                        @if ($booking->status == 'pending' || $booking->status == 'confirmation')
+                            <a href="/admin/order/{{ $booking->order->id }}/detail/create"
+                                class="btn btn-sm btn-primary d-inline m-1"><i class="bi bi-plus"></i>
+                                Tambah</a>
+                        @endif
                         <table class="table table-hover table-responsive datatable" id="example1">
                             <thead>
                                 <tr>

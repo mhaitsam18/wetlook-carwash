@@ -28,9 +28,11 @@
                     <div class="card-body pb-0">
                         <h5 class="card-title">Tabel {{ $title }}</h5>
 
-                        <a href="/admin/order/{{ $order->id }}/detail/create"
-                            class="btn btn-sm btn-primary d-inline m-1"><i class="bi bi-plus"></i>
-                            Tambah</a>
+                        @if ($order->status == 'pending' || $order->status == 'confirmation')
+                            <a href="/admin/order/{{ $order->id }}/detail/create"
+                                class="btn btn-sm btn-primary d-inline m-1"><i class="bi bi-plus"></i>
+                                Tambah</a>
+                        @endif
 
                         <table class="table table-hover table-responsive datatable" id="example1">
                             <thead>
