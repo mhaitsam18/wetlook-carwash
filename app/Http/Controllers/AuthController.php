@@ -98,11 +98,11 @@ class AuthController extends Controller
             ? User::where('email', $credentials['email_or_username'])->first()
             : User::where('username', $credentials['email_or_username'])->first();
         if (!$user) {
-            return back()->with('loginError', 'Email atau Username atau Password Salah');
+            return back()->with('error', 'Email atau Username atau Password Salah');
         }
         // if (!$user->hasVerifiedEmail()) {
         //     $user->sendEmailVerificationNotification();
-        //     return back()->with('loginError', 'Email Anda belum diverifikasi, Silahkan cek Email Anda');
+        //     return back()->with('error', 'Email Anda belum diverifikasi, Silahkan cek Email Anda');
         // }
         $credential['password'] = $request->input('password');
         if ($user->email) {
@@ -110,7 +110,7 @@ class AuthController extends Controller
         } elseif ($user->username) {
             $credential['username'] = $user->username;
         } else {
-            return back()->with('loginError', 'Email atau Username atau Password Salah');
+            return back()->with('error', 'Email atau Username atau Password Salah');
         }
         $remember = $request->has('remember');
         if (Auth::attempt($credential, $remember)) {
@@ -129,11 +129,11 @@ class AuthController extends Controller
                     Auth::logout();
                     $request->session()->invalidate();
                     $request->session()->regenerateToken();
-                    return back()->with('loginError', 'Akun Anda tidak memiliki otoritas apapun, Hubungi Admin terkait');
+                    return back()->with('error', 'Akun Anda tidak memiliki otoritas apapun, Hubungi Admin terkait');
                     break;
             }
         }
-        return back()->with('loginError', 'Email atau Username atau Password Salah');
+        return back()->with('error', 'Email atau Username atau Password Salah');
     }
 
     public function logout(Request $request)
