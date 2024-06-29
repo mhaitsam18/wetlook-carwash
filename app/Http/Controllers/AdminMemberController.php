@@ -116,7 +116,7 @@ class AdminMemberController extends Controller
             'name' => 'Nama Lengkap',
             'username' => 'Nama Pengguna',
             'phone_number' => 'Nomor Ponsel',
-            'address' => 'Nomor Ponsel',
+            'address' => 'Alamat',
             'photo' => 'Foto',
         ];
 
